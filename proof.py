@@ -19,6 +19,9 @@
 
 """TODO Update comments and documentation"""
 
+import os
+import pkg_resources
+
 from docutils import nodes
 from docutils.parsers.rst import directives
 
@@ -26,6 +29,9 @@ from sphinx.locale import _
 from sphinx.environment import NoUri
 from sphinx.util.nodes import set_source_info
 from sphinx.util.compat import Directive, make_admonition
+
+def package_file(*filename):
+    return pkg_resources.resource_filename("sphinxcontrib.proof", os.path.join("data", *filename))
 
 PREFIX = "proof:"
 
@@ -66,8 +72,6 @@ class ProofEnvironment(Directive):
 
         if self.arguments:
             node['title'] = self.arguments[0]
-        else:
-            node['title'] = None
 
         content = ContentNode()
         self.state.nested_parse(self.content, self.content_offset, content)
@@ -136,11 +140,16 @@ def html_depart_content_node(self, node):
 # LaTeX
 def latex_visit_proof_node(self, node):
     self.body.append("DEBUT proof")
+    if 'title' in node:
+        self.body.append(str(node['title']))
 def latex_depart_proof_node(self, node):
     self.body.append('FIN proof')
 
 def latex_visit_statement_node(self, node):
     self.body.append("DEBUT statement")
+    self.body.append(str(node['name']))
+    if 'title' in node:
+        self.body.append(node['title'])
 def latex_depart_statement_node(self, node):
     self.body.append('FIN statement')
 
@@ -149,10 +158,15 @@ def latex_visit_content_node(self, node):
 def latex_depart_content_node(self, node):
     self.body.append('FIN content')
 
+def builder_inited(app):
+    if app.builder.name == "latex":
+        #app.builder.usepackages.append(["proof"])
+        app.builder.config.latex_additional_files.append(package_file("static", "sphinxcontribproof.sty"))
+
 # Setup
 def setup(app):
-    app.add_javascript('proof.js')
-    app.add_stylesheet('proof.css')
+    app.add_javascript(package_file("static", 'proof.js'))
+    app.add_stylesheet(package_file("static", 'proof.css'))
 
     app.add_node(ProofNode,
                  html=(html_visit_proof_node, html_depart_proof_node),
@@ -176,3 +190,5 @@ def setup(app):
     app.add_directive(PREFIX + 'conjecture', StatementEnvironment)
     app.add_directive(PREFIX + 'algorithm', StatementEnvironment)
 
+    app.connect('builder-inited', builder_inited)
+    app.add_latex_package("sphinxcontribproof")
