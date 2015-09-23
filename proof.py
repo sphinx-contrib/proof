@@ -139,28 +139,31 @@ def html_depart_content_node(self, node):
 
 # LaTeX
 def latex_visit_proof_node(self, node):
-    self.body.append("DEBUT proof")
+    self.body.append(r"\begin{proof}")
     if 'title' in node:
-        self.body.append(str(node['title']))
+        self.body.append("[{}]".format(node['title']))
+        print(node['title'])
+    self.body.append("\n")
 def latex_depart_proof_node(self, node):
-    self.body.append('FIN proof')
+    self.body.append(r"\end{proof}")
+    self.body.append("\n")
 
 def latex_visit_statement_node(self, node):
-    self.body.append("DEBUT statement")
-    self.body.append(str(node['name']))
+    self.body.append(r"\begin{{{}}}".format(node['name']))
     if 'title' in node:
-        self.body.append(node['title'])
+        self.body.append("[{}]".format(node['title']))
+    self.body.append("\n")
 def latex_depart_statement_node(self, node):
-    self.body.append('FIN statement')
+    self.body.append(r"\end{{{}}}".format(node['name']))
+    self.body.append("\n")
 
 def latex_visit_content_node(self, node):
-    self.body.append("DEBUT content")
+    pass
 def latex_depart_content_node(self, node):
-    self.body.append('FIN content')
+    pass
 
 def builder_inited(app):
     if app.builder.name == "latex":
-        #app.builder.usepackages.append(["proof"])
         app.builder.config.latex_additional_files.append(package_file("static", "sphinxcontribproof.sty"))
 
 # Setup
