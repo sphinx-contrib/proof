@@ -4,7 +4,8 @@ Description of the `sphinxcontrib-proof` Sphinx Extension
 |sources| |pypi| |documentation| |license|
 
 This `sphinx <http://sphinx.pocoo.org/>`__ extension provides some directives
-to typeset theorems, properties, proofs, etc.
+to typeset theorems, properties, proofs, etc. You can see it in action in
+`Jouets' documentation <http://jouets.readthedocs.org/fr/latest/dobble/math/>`_.
 
 What's new?
 -----------
