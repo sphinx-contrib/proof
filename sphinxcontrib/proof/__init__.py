@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # Copyright 2015 Louis Paternault
 #
 # Sphinxcontrib-Proof is free software: you can redistribute it and/or modify
@@ -23,30 +21,36 @@ import pkg_resources
 from docutils import nodes
 from docutils.parsers.rst import directives
 
-from sphinx.locale import _
-from sphinx.environment import NoUri
 from sphinx.util.nodes import set_source_info
-from sphinx.util.compat import Directive, make_admonition
+from sphinx.util.compat import Directive
 
 def package_file(*filename):
+    """Return the path to a filename present in package data."""
     return pkg_resources.resource_filename("sphinxcontrib.proof", os.path.join("data", *filename))
 
 PREFIX = "proof:"
 
-class StatementNode(nodes.General, nodes.Element): pass
-class ProofNode(nodes.Part, nodes.Element): pass
-class ContentNode(nodes.General, nodes.Element): pass
+class StatementNode(nodes.General, nodes.Element):
+    """Statement"""
+    pass
+class ProofNode(nodes.Part, nodes.Element):
+    """Proof"""
+    pass
+class ContentNode(nodes.General, nodes.Element):
+    """Content of a proof or a statement"""
+    pass
 
-HUMAN = {
-        'lemma': "Lemme",
-        'property': "Propriété",
-        'example': "Exemple",
-        'theorem': "Théorème",
-        'definition': "Définition",
-        'proof': "Preuve",
-        'conjecture': "Conjecture",
-        'algorithm': "Algorithme",
-        }
+# This should be internationalized using gettext… Patch welcome!
+FRENCH = {
+    'lemma': "Lemme",
+    'property': "Propriété",
+    'example': "Exemple",
+    'theorem': "Théorème",
+    'definition': "Définition",
+    'proof': "Preuve",
+    'conjecture': "Conjecture",
+    'algorithm': "Algorithme",
+    }
 
 
 class ProofEnvironment(Directive):
@@ -57,10 +61,11 @@ class ProofEnvironment(Directive):
     optional_arguments = 1
     final_argument_whitespace = True
     option_spec = {
-            'label': directives.unchanged_required,
-            }
+        'label': directives.unchanged_required,
+        }
 
     def run(self):
+        """Render this environment"""
         env = self.state.document.settings.env
         targetid = 'index-%s' % env.new_serialno('index')
         targetnode = nodes.target('', '', ids=[targetid])
@@ -87,10 +92,11 @@ class StatementEnvironment(Directive):
     optional_arguments = 1
     final_argument_whitespace = True
     option_spec = {
-            'label': directives.unchanged_required,
-            }
+        'label': directives.unchanged_required,
+        }
 
     def run(self):
+        """Render this environment"""
         env = self.state.document.settings.env
         targetid = 'index-%s' % env.new_serialno('index')
         targetnode = nodes.target('', '', ids=[targetid])
@@ -111,76 +117,109 @@ class StatementEnvironment(Directive):
 
 # HTML
 def html_visit_proof_node(self, node):
+    """Enter :class:`ProofNode` in HTML builder."""
     self.body.append(self.starttag(node, 'div'))
     self.body.append("""<div class="proof-title">""")
     self.body.append("""<span class="proof-title-name">Preuve</span>""")
     if 'title' in node:
         self.body.append(""" <span class="proof-title-content">({})</span>""".format(node['title']))
     self.body.append("""</div>""")
+
 def html_depart_proof_node(self, node):
+    """Leave :class:`ProofNode` in HTML builder."""
+    # pylint: disable=unused-argument
     self.body.append('</div>')
 
+
 def html_visit_statement_node(self, node):
+    """Enter :class:`StatementNode` in HTML builder."""
     self.body.append(self.starttag(node, 'div'))
     self.body.append("""<div class="proof-title">""")
-    self.body.append("""<span class="proof-title-name">{}</span>""".format(HUMAN[node['name']]))
+    self.body.append("""<span class="proof-title-name">{}</span>""".format(FRENCH[node['name']]))
     if 'title' in node:
         self.body.append(""" <span class="proof-title-content">({})</span>""".format(node['title']))
     self.body.append("""</div>""")
+
 def html_depart_statement_node(self, node):
+    """Leave :class:`StatementNode` in HTML builder."""
+    # pylint: disable=unused-argument
     self.body.append('</div>')
 
+
 def html_visit_content_node(self, node):
+    """Enter :class:`ContentNode` in HTML builder."""
     self.body.append(self.starttag(node, 'div'))
+
 def html_depart_content_node(self, node):
+    """Leave :class:`ContentNode` in HTML builder."""
+    # pylint: disable=unused-argument
     self.body.append('</div>')
 
 # LaTeX
 def latex_visit_proof_node(self, node):
+    """Enter :class:`ProofNode` in LaTeX builder."""
     self.body.append(r"\begin{proof}")
     if 'title' in node:
         self.body.append("[{}]".format(node['title']))
-        print(node['title'])
     self.body.append("\n")
+
 def latex_depart_proof_node(self, node):
+    """Leave :class:`ProofNode` in LaTeX builder."""
+    # pylint: disable=unused-argument
     self.body.append(r"\end{proof}")
     self.body.append("\n")
 
+
 def latex_visit_statement_node(self, node):
+    """Enter :class:`StatementNode` in LaTeX builder."""
     self.body.append(r"\begin{{{}}}".format(node['name']))
     if 'title' in node:
         self.body.append("[{}]".format(node['title']))
     self.body.append("\n")
+
 def latex_depart_statement_node(self, node):
+    """Leave :class:`StatementNode` in LaTeX builder."""
     self.body.append(r"\end{{{}}}".format(node['name']))
     self.body.append("\n")
 
+
 def latex_visit_content_node(self, node):
+    """Enter :class:`ContentNode` in LaTeX builder."""
+    # pylint: disable=unused-argument
     pass
+
 def latex_depart_content_node(self, node):
+    """Leave :class:`ContentNode` in LaTeX builder."""
+    # pylint: disable=unused-argument
     pass
 
 def builder_inited(app):
+    """Hook called when builder has been inited."""
     if app.builder.name == "latex":
-        app.builder.config.latex_additional_files.append(package_file("static", "sphinxcontribproof.sty"))
+        app.builder.config.latex_additional_files.append(
+            package_file("static", "sphinxcontribproof.sty")
+            )
 
-# Setup
 def setup(app):
+    """Plugin setup"""
     app.add_javascript(package_file("static", 'proof.js'))
     app.add_stylesheet(package_file("static", 'proof.css'))
 
-    app.add_node(ProofNode,
-                 html=(html_visit_proof_node, html_depart_proof_node),
-                 latex=(latex_visit_proof_node, latex_depart_proof_node),
-                 )
-    app.add_node(StatementNode,
-                 html=(html_visit_statement_node, html_depart_statement_node),
-                 latex=(latex_visit_statement_node, latex_depart_statement_node),
-                 )
-    app.add_node(ContentNode,
-                 html=(html_visit_content_node, html_depart_content_node),
-                 latex=(latex_visit_content_node, latex_depart_content_node),
-                 )
+    app.add_node(
+        ProofNode,
+        html=(html_visit_proof_node, html_depart_proof_node),
+        latex=(latex_visit_proof_node, latex_depart_proof_node),
+        )
+    app.add_node(
+        StatementNode,
+        html=(html_visit_statement_node, html_depart_statement_node),
+        latex=(latex_visit_statement_node, latex_depart_statement_node),
+        )
+    app.add_node(
+        ContentNode,
+        html=(html_visit_content_node, html_depart_content_node),
+        latex=(latex_visit_content_node, latex_depart_content_node),
+        )
 
     app.add_directive(PREFIX + 'property', StatementEnvironment)
     app.add_directive(PREFIX + 'lemma', StatementEnvironment)
