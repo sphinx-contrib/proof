@@ -21,6 +21,7 @@ import pkg_resources
 from docutils import nodes
 from docutils.parsers.rst import directives
 
+from sphinx.util import copy_static_entry
 from sphinx.util.nodes import set_source_info
 from sphinx.util.compat import Directive
 
@@ -197,14 +198,21 @@ def builder_inited(app):
     """Hook called when builder has been inited."""
     if app.builder.name == "latex":
         app.builder.config.latex_additional_files.append(
-            package_file("static", "sphinxcontribproof.sty")
+            package_file("_static", "sphinxcontribproof.sty")
             )
+
+    if app.builder.name == "html":
+        outdir_static = os.path.join(app.builder.outdir, "_static")
+        os.makedirs(outdir_static, exist_ok=True)
+
+        copy_static_entry(package_file("_static", "proof.css"), outdir_static, app.builder)
+        app.add_stylesheet("proof.css")
+
+        copy_static_entry(package_file("_static", "proof.js"), outdir_static, app.builder)
+        app.add_javascript("proof.js")
 
 def setup(app):
     """Plugin setup"""
-    app.add_javascript(package_file("static", 'proof.js'))
-    app.add_stylesheet(package_file("static", 'proof.css'))
-
     app.add_node(
         ProofNode,
         html=(html_visit_proof_node, html_depart_proof_node),
