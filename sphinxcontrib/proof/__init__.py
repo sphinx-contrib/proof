@@ -125,7 +125,9 @@ def html_visit_proof_node(self, node):
     self.body.append("""<div class="proof-title">""")
     self.body.append("""<span class="proof-title-name">Preuve</span>""")
     if 'title' in node:
-        self.body.append(u""" <span class="proof-title-content">({})</span>""".format(node['title']))
+        self.body.append("""<span class="proof-title-content">""")
+        self.body.append(u"({})".format(node['title']))
+        self.body.append("""</span>""")
     self.body.append("""</div>""")
 
 def html_depart_proof_node(self, node):
@@ -140,7 +142,9 @@ def html_visit_statement_node(self, node):
     self.body.append("""<div class="proof-title">""")
     self.body.append(u"""<span class="proof-title-name">{}</span>""".format(FRENCH[node['name']]))
     if 'title' in node:
-        self.body.append(u""" <span class="proof-title-content">({})</span>""".format(node['title']))
+        self.body.append("""<span class="proof-title-content">""")
+        self.body.append(u"({})".format(node['title']))
+        self.body.append("""</span>""")
     self.body.append("""</div>""")
 
 def html_depart_statement_node(self, node):
