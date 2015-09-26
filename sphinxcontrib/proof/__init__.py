@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Copyright 2015 Louis Paternault
 #
 # Sphinxcontrib-Proof is free software: you can redistribute it and/or modify
@@ -43,14 +45,14 @@ class ContentNode(nodes.General, nodes.Element):
 
 # This should be internationalized using gettext… Patch welcome!
 FRENCH = {
-    'lemma': "Lemme",
-    'property': "Propriété",
-    'example': "Exemple",
-    'theorem': "Théorème",
-    'definition': "Définition",
-    'proof': "Preuve",
-    'conjecture': "Conjecture",
-    'algorithm': "Algorithme",
+    'lemma': u"Lemme",
+    'property': u"Propriété",
+    'example': u"Exemple",
+    'theorem': u"Théorème",
+    'definition': u"Définition",
+    'proof': u"Preuve",
+    'conjecture': u"Conjecture",
+    'algorithm': u"Algorithme",
     }
 
 
@@ -123,7 +125,7 @@ def html_visit_proof_node(self, node):
     self.body.append("""<div class="proof-title">""")
     self.body.append("""<span class="proof-title-name">Preuve</span>""")
     if 'title' in node:
-        self.body.append(""" <span class="proof-title-content">({})</span>""".format(node['title']))
+        self.body.append(u""" <span class="proof-title-content">({})</span>""".format(node['title']))
     self.body.append("""</div>""")
 
 def html_depart_proof_node(self, node):
@@ -136,9 +138,9 @@ def html_visit_statement_node(self, node):
     """Enter :class:`StatementNode` in HTML builder."""
     self.body.append(self.starttag(node, 'div'))
     self.body.append("""<div class="proof-title">""")
-    self.body.append("""<span class="proof-title-name">{}</span>""".format(FRENCH[node['name']]))
+    self.body.append(u"""<span class="proof-title-name">{}</span>""".format(FRENCH[node['name']]))
     if 'title' in node:
-        self.body.append(""" <span class="proof-title-content">({})</span>""".format(node['title']))
+        self.body.append(u""" <span class="proof-title-content">({})</span>""".format(node['title']))
     self.body.append("""</div>""")
 
 def html_depart_statement_node(self, node):
