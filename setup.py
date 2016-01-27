@@ -48,7 +48,7 @@ setup(
         license="AGPLv3 or any later version",
         #test_suite="test.suite",
         classifiers=[
-            "Development Status :: 4 - Beta",
+            "Development Status :: 5 - Production/Stable",
             "Framework :: Sphinx :: Extension",
             "Intended Audience :: Developers",
             "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
