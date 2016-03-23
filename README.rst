@@ -54,5 +54,6 @@ The documentation is available on `readthedocs
   :target: http://www.gnu.org/licenses/agpl-3.0.html
 .. |sources| image:: https://img.shields.io/badge/sources-sphinxcontrib--proof-brightgreen.svg
   :target: http://git.framasoft.org/spalax/sphinxcontrib-proof
-.. |build| image:: https://git.framasoft.org/ci/projects/83/status.png?ref=master
-  :target: https://git.framasoft.org/ci/projects/83?ref=master
+.. |build| image:: https://git.framasoft.org/spalax/proof/badges/master/build.svg
+  :target: https://git.framasoft.org/spalax/proof/builds
+
