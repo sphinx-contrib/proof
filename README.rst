@@ -46,7 +46,7 @@ The documentation is available on `readthedocs
 
   cd doc && make html
 
-.. |documentation| image:: http://readthedocs.io/projects/sphinxcontrib-proof/badge
+.. |documentation| image:: http://readthedocs.org/projects/sphinxcontrib-proof/badge
   :target: http://sphinxcontrib-proof.readthedocs.io
 .. |pypi| image:: https://img.shields.io/pypi/v/sphinxcontrib-proof.svg
   :target: http://pypi.python.org/pypi/sphinxcontrib-proof
