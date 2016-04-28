@@ -5,7 +5,7 @@ Description of the `sphinxcontrib-proof` Sphinx Extension
 
 This `sphinx <http://sphinx.pocoo.org/>`__ extension provides some directives
 to typeset theorems, properties, proofs, etc. You can see it in action in
-`Jouets' documentation <http://jouets.readthedocs.org/fr/latest/dobble/math/>`_.
+`Jouets' documentation <http://jouets.readthedocs.io/fr/latest/dobble/math/>`_.
 
 What's new?
 -----------
@@ -42,12 +42,12 @@ Documentation
 -------------
 
 The documentation is available on `readthedocs
-<http://sphinxcontrib-proof.readthedocs.org>`_.  You can build it using::
+<http://sphinxcontrib-proof.readthedocs.io>`_.  You can build it using::
 
   cd doc && make html
 
-.. |documentation| image:: http://readthedocs.org/projects/sphinxcontrib-proof/badge
-  :target: http://sphinxcontrib-proof.readthedocs.org
+.. |documentation| image:: http://readthedocs.io/projects/sphinxcontrib-proof/badge
+  :target: http://sphinxcontrib-proof.readthedocs.io
 .. |pypi| image:: https://img.shields.io/pypi/v/sphinxcontrib-proof.svg
   :target: http://pypi.python.org/pypi/sphinxcontrib-proof
 .. |license| image:: https://img.shields.io/pypi/l/sphinxcontrib-proof.svg
