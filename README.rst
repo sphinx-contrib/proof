@@ -1,7 +1,7 @@
 Description of the `sphinxcontrib-proof` Sphinx Extension
 =========================================================
 
-|sources| |pypi| |documentation| |license|
+|sources| |pypi| |build| |coverage| |documentation| |license|
 
 This `sphinx <http://sphinx.pocoo.org/>`__ extension provides some directives
 to typeset theorems, properties, proofs, etc. You can see it in action in
@@ -54,6 +54,8 @@ The documentation is available on `readthedocs
   :target: http://www.gnu.org/licenses/agpl-3.0.html
 .. |sources| image:: https://img.shields.io/badge/sources-sphinxcontrib--proof-brightgreen.svg
   :target: http://git.framasoft.org/spalax/sphinxcontrib-proof
+.. |coverage| image:: https://git.framasoft.org/spalax/proof/badges/master/coverage.svg
+  :target: https://git.framasoft.org/spalax/proof/builds
 .. |build| image:: https://git.framasoft.org/spalax/proof/badges/master/build.svg
   :target: https://git.framasoft.org/spalax/proof/builds
 
