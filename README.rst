@@ -10,8 +10,7 @@ to typeset theorems, properties, proofs, etc. You can see it in action in
 What's new?
 -----------
 
-See `changelog
-<https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/master/CHANGELOG.md>`_.
+See `changelog <https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/master/CHANGELOG.md>`_.
 
 Install
 -------
@@ -41,8 +40,7 @@ See the end of list for a (quick and dirty) Debian package.
 Documentation
 -------------
 
-The documentation is available on `readthedocs
-<http://sphinxcontrib-proof.readthedocs.io>`_.  You can build it using::
+The documentation is available on `readthedocs <http://sphinxcontrib-proof.readthedocs.io>`_.  You can build it using::
 
   cd doc && make html
 
