@@ -1,7 +1,4 @@
-image: redjack/pythons
-
-before_script:
-  - pip install tox
+image: paternal/pythons
 
 tox:
   script:
