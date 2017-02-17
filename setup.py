@@ -38,7 +38,7 @@ setup(
         packages=find_packages(exclude=["test*"]),
         setup_requires=["hgtools"],
         install_requires=[
-            "sphinx",
+            "sphinx>=1.5.2",
             ],
         include_package_data=True,
         author='Louis Paternault',
