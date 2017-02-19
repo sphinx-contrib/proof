@@ -1,6 +1,8 @@
-* sphinxcontrib-proof 0.1.1 (unreleased)
+* sphinxcontrib-proof 0.1.1 (2017-02-19)
 
     * Add python3.6 support.
+    * Fix minor bugs introduced by sphinx1.5.
+    * Minor test improvements.
 
     -- Louis Paternault <spalax@gresille.org>
 

@@ -31,7 +31,7 @@ def package_file(*filename):
     """Return the path to a filename present in package data."""
     return pkg_resources.resource_filename("sphinxcontrib.proof", os.path.join("data", *filename))
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 PREFIX = "proof:"
 
 class StatementNode(nodes.General, nodes.Element):
