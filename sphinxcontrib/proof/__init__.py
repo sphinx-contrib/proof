@@ -207,6 +207,7 @@ def builder_inited(app):
         app.builder.config.latex_additional_files.append(
             package_file("_static", "sphinxcontribproof.sty")
             )
+        app.add_latex_package("sphinxcontribproof")
 
 def setup(app):
     """Plugin setup"""
@@ -239,4 +240,3 @@ def setup(app):
     app.add_directive(PREFIX + 'algorithm', StatementEnvironment)
 
     app.connect('builder-inited', builder_inited)
-    app.add_latex_package("sphinxcontribproof")
