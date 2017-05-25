@@ -4,10 +4,10 @@
     * Fix minor bugs introduced by sphinx1.5.
     * Minor test improvements.
 
-    -- Louis Paternault <spalax+pypi@gresille.org>
+    -- Louis Paternault <spalax+python@gresille.org>
 
 * sphinxcontrib-proof 0.1.0 (2015-09-26)
 
     * First published version: works for both LaTeX and HTML builders
 
-    -- Louis Paternault <spalax+pypi@gresille.org>
+    -- Louis Paternault <spalax+python@gresille.org>
