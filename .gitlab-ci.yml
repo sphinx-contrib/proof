@@ -3,3 +3,4 @@ image: paternal/pythons
 tox:
   script:
     - tox
+  coverage: '/^TOTAL.*\s(\d+)\%$/'
