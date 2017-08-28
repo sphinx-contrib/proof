@@ -1,4 +1,4 @@
-🍼 Description of the `sphinxcontrib-proof` Sphinx Extension
+∎ Description of the `sphinxcontrib-proof` Sphinx Extension
 ===========================================================
 
 |sources| |pypi| |build| |coverage| |documentation| |license|
