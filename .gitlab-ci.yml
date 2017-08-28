@@ -1,4 +1,4 @@
-image: paternal/pythons
+image: paternal/pythons:stretch34
 
 tox:
   script:
