@@ -47,6 +47,7 @@ setup(
         url='https://git.framasoft.org/spalax/sphinxcontrib-proof',
         license="AGPLv3 or any later version",
         #test_suite="test.suite",
+        keywords = "sphinx math proof theorem",
         classifiers=[
             "Development Status :: 5 - Production/Stable",
             "Framework :: Sphinx :: Extension",
