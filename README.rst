@@ -1,5 +1,5 @@
-∎ Description of the `sphinxcontrib-proof` Sphinx Extension
-===========================================================
+`sphinxcontrib-proof` ∎ Typeset theorems, proofs, properties…
+=============================================================
 
 |sources| |pypi| |build| |coverage| |documentation| |license|
 
