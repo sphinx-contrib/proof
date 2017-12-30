@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Copyright 2015 Louis Paternault
+# Copyright 2017 Louis Paternault
 #
 # Sphinxcontrib-Proof is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,7 +28,7 @@ def package_file(*filename):
     """Return the path to a filename present in package data."""
     return pkg_resources.resource_filename("sphinxcontrib.proof", os.path.join("data", *filename))
 
-VERSION = "0.1.1"
+VERSION = "1.0.0"
 PREFIX = "proof:"
 
 class StatementNode(nodes.General, nodes.Element):

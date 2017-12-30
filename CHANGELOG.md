@@ -1,6 +1,7 @@
-* sphinxcontrib-proof 0.2.0 (unreleased)
+* sphinxcontrib-proof 1.0.0 (2017-12-30)
 
     * Drop python2 support.
+    * Minor internal improvements.
 
     -- Louis Paternault <spalax+python@gresille.org>
 
