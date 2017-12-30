@@ -1,3 +1,9 @@
+* sphinxcontrib-proof 0.2.0 (unreleased)
+
+    * Drop python2 support.
+
+    -- Louis Paternault <spalax+python@gresille.org>
+
 * sphinxcontrib-proof 0.1.1 (2017-02-19)
 
     * Add python3.6 support.

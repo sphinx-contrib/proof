@@ -15,7 +15,7 @@ See `changelog <https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/master
 Install
 -------
 
-This module is compatible with both python 2 and 3.
+This module is compatible with python 3 only.
 
 See the end of list for a (quick and dirty) Debian package.
 
@@ -24,7 +24,7 @@ See the end of list for a (quick and dirty) Debian package.
   * Download: https://pypi.python.org/pypi/sphinxcontrib-proof
   * Install (in a `virtualenv`, if you do not want to mess with your distribution installation system)::
 
-      python setup.py install
+      python3 setup.py install
 
 * From pip::
 
@@ -34,7 +34,7 @@ See the end of list for a (quick and dirty) Debian package.
 
   This requires `stdeb <https://github.com/astraw/stdeb>`_ to be installed::
 
-      python setup.py --command-packages=stdeb.command bdist_deb
+      python3 setup.py --command-packages=stdeb.command bdist_deb
       sudo dpkg -i deb_dist/python3-sphinxcontrib-proof-<VERSION>_all.deb
 
 Documentation
