@@ -21,11 +21,10 @@ import os
 import pkg_resources
 
 from docutils import nodes
-from docutils.parsers.rst import directives
+from docutils.parsers.rst import directives, Directive
 
 from sphinx.util import copy_static_entry
 from sphinx.util.nodes import set_source_info
-from sphinx.util.compat import Directive
 
 def package_file(*filename):
     """Return the path to a filename present in package data."""
