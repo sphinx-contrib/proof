@@ -35,7 +35,8 @@ def readme():
 setup(
         name='sphinxcontrib-proof',
         version="1.0.0",
-        packages=find_packages(exclude=["test*"]),
+        packages=find_packages(exclude=["test*"])
+            + ["sphinxcontrib.proof"], # TODO: Remove this line when bug https://github.com/pypa/setuptools/issues/97 is fixed.
         setup_requires=["hgtools"],
         install_requires=[
             "sphinx>=1.5.2",
