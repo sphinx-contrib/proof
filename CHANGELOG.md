@@ -1,3 +1,9 @@
+* sphinxcontrib-proof 1.0.1 (2017-01-01)
+
+    * Fix wheel.
+
+    -- Louis Paternault <spalax+python@gresille.org>
+
 * sphinxcontrib-proof 1.0.0 (2017-12-30)
 
     * Drop python2 support.

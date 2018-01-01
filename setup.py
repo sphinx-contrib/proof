@@ -1,4 +1,4 @@
-# Copyright 2015 Louis Paternault
+# Copyright 2017 Louis Paternault
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ def readme():
 
 setup(
         name='sphinxcontrib-proof',
-        version="1.0.0",
+        version="1.0.1",
         packages=find_packages(exclude=["test*"])
             + ["sphinxcontrib.proof"], # TODO: Remove this line when bug https://github.com/pypa/setuptools/issues/97 is fixed.
         setup_requires=["hgtools"],
