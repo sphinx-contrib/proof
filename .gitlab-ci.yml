@@ -1,4 +1,4 @@
-image: paternal/pythons:stretch
+image: paternal/pythons:buster
 
 tox:
   script:

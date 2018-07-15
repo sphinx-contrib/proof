@@ -19,49 +19,48 @@ from setuptools import setup, find_packages
 import codecs
 import os
 
+
 def readme():
-    directory = os.path.dirname(os.path.join(
-        os.getcwd(),
-        __file__,
-        ))
+    directory = os.path.dirname(os.path.join(os.getcwd(), __file__))
     with codecs.open(
         os.path.join(directory, "README.rst"),
         encoding="utf8",
         mode="r",
         errors="replace",
-        ) as file:
+    ) as file:
         return file.read()
 
+
 setup(
-        name='sphinxcontrib-proof',
-        version="1.0.1",
-        packages=find_packages(exclude=["test*"])
-            + ["sphinxcontrib.proof"], # TODO: Remove this line when bug https://github.com/pypa/setuptools/issues/97 is fixed.
-        setup_requires=["hgtools"],
-        install_requires=[
-            "sphinx>=1.5.2",
-            ],
-        include_package_data=True,
-        author='Louis Paternault',
-        author_email='spalax+python@gresille.org',
-        description="This packages contains the Proof sphinx extension, which provides directives to typeset theorems, lemmas, proofs, etc.",
-        url='https://git.framasoft.org/spalax/sphinxcontrib-proof',
-        license="AGPLv3 or any later version",
-        #test_suite="test.suite",
-        keywords = "sphinx math proof theorem",
-        classifiers=[
-            "Development Status :: 5 - Production/Stable",
-            "Framework :: Sphinx :: Extension",
-            "Intended Audience :: Developers",
-            "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
-            "Operating System :: Unix",
-            "Programming Language :: Python :: 3",
-            "Programming Language :: Python :: 3.5",
-            "Programming Language :: Python :: 3.6",
-            "Topic :: Documentation :: Sphinx",
-            "Topic :: Scientific/Engineering :: Mathematics",
-            "Topic :: Software Development :: Libraries :: Python Modules",
-        ],
-        long_description=readme(),
-        zip_safe = False,
+    name="sphinxcontrib-proof",
+    version="1.0.1",
+    packages=find_packages(exclude=["test*"])
+    + [
+        "sphinxcontrib.proof"
+    ],  # TODO: Remove this line when bug https://github.com/pypa/setuptools/issues/97 is fixed.
+    setup_requires=["hgtools"],
+    install_requires=["sphinx>=1.5.2"],
+    include_package_data=True,
+    author="Louis Paternault",
+    author_email="spalax+python@gresille.org",
+    description="This packages contains the Proof sphinx extension, which provides directives to typeset theorems, lemmas, proofs, etc.",
+    url="https://git.framasoft.org/spalax/sphinxcontrib-proof",
+    license="AGPLv3 or any later version",
+    # test_suite="test.suite",
+    keywords="sphinx math proof theorem",
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Framework :: Sphinx :: Extension",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+        "Operating System :: Unix",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Topic :: Documentation :: Sphinx",
+        "Topic :: Scientific/Engineering :: Mathematics",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+    ],
+    long_description=readme(),
+    zip_safe=False,
 )

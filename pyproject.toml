@@ -1,0 +1,17 @@
+[tool.black]
+line-length = 88
+# py36 = true # Uncomment if py36 (or above) only
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.eggs
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
