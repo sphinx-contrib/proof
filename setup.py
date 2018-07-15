@@ -45,6 +45,11 @@ setup(
     author_email="spalax+python@gresille.org",
     description="This packages contains the Proof sphinx extension, which provides directives to typeset theorems, lemmas, proofs, etc.",
     url="https://git.framasoft.org/spalax/sphinxcontrib-proof",
+    project_urls={
+        "Documentation": "http://sphinxcontrib-proof.readthedocs.io",
+        "Source": "https://framagit.org/spalax/sphinxcontrib-proof",
+        "Tracker": "https://framagit.org/spalax/sphinxcontrib-proof/issues",
+    },
     license="AGPLv3 or any later version",
     # test_suite="test.suite",
     keywords="sphinx math proof theorem",
