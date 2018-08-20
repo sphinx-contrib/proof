@@ -54,19 +54,6 @@ class ContentNode(nodes.General, nodes.Element):
     pass
 
 
-# This should be internationalized using gettext… Patch welcome!
-FRENCH = {
-    "lemma": u"Lemme",
-    "property": u"Propriété",
-    "example": u"Exemple",
-    "theorem": u"Théorème",
-    "definition": u"Définition",
-    "proof": u"Preuve",
-    "conjecture": u"Conjecture",
-    "algorithm": u"Algorithme",
-}
-
-
 class ProofEnvironment(Directive):
     """A proof environment"""
 
@@ -78,8 +65,8 @@ class ProofEnvironment(Directive):
 
     def run(self):
         """Render this environment"""
-        env = self.state.document.settings.env
-        targetid = "index-%s" % env.new_serialno("index")
+        self.env = self.state.document.settings.env
+        targetid = "index-%s" % self.env.new_serialno("index")
         targetnode = nodes.target("", "", ids=[targetid])
 
         node = ProofNode("\n".join(self.content))
@@ -130,9 +117,14 @@ class StatementEnvironment(Directive):
 # HTML
 def html_visit_proof_node(self, node):
     """Enter :class:`ProofNode` in HTML builder."""
+    labels = parse_theorem_labels(self.builder.config)
     self.body.append(self.starttag(node, "div"))
     self.body.append("""<div class="proof-title">""")
-    self.body.append("""<span class="proof-title-name">Preuve</span>""")
+    self.body.append(
+        """<span class="proof-title-name">{}</span>""".format(
+            labels.get("proof", "Proof")
+        )
+    )
     if "title" in node:
         self.body.append("""<span class="proof-title-content">""")
         self.body.append(u"({})".format(node["title"]))
@@ -148,10 +140,13 @@ def html_depart_proof_node(self, node):
 
 def html_visit_statement_node(self, node):
     """Enter :class:`StatementNode` in HTML builder."""
+    labels = parse_theorem_labels(self.builder.config)
     self.body.append(self.starttag(node, "div"))
     self.body.append("""<div class="proof-title">""")
     self.body.append(
-        u"""<span class="proof-title-name">{}</span>""".format(FRENCH[node["name"]])
+        u"""<span class="proof-title-name">{}</span>""".format(
+            labels.get(node["name"], "unknown-theorem-type")
+        )
     )
     if "title" in node:
         self.body.append("""<span class="proof-title-content">""")
@@ -219,19 +214,62 @@ def latex_depart_content_node(self, node):
     pass
 
 
+# latex sty not necessary anymore
+# user is still required to load desired theorem package
 def builder_inited(app):
     """Hook called when builder has been inited."""
     if app.builder.name == "latex":
-        app.builder.config.latex_additional_files.append(
-            package_file("_static", "sphinxcontribproof.sty")
-        )
-        app.add_latex_package("sphinxcontribproof")
+        counter = parse_theorem_counter(app.builder.config)
+        app.builder.config.latex_elements["preamble"] += "\n" + r"\makeatletter"
+        labels = parse_theorem_labels(app.builder.config)
+        app.builder.config.latex_elements[
+            "preamble"
+        ] += "\n" r"\newtheorem{theorem}{%s}[%s]" % (labels["theorem"], counter)
+        for environment, label in labels.items():
+            if not environment in ["proof", "theorem"]:
+                app.builder.config.latex_elements[
+                    "preamble"
+                ] += "\n" r"\newtheorem{%s}[theorem]{%s}" % (environment, label)
+
+        app.builder.config.latex_elements["preamble"] += "\n" + r"\makeatother"
+
+
+COUNTER = "proof_theorem_counter"
+
+THEOREMS = "proof_theorem_labels"
+
+
+def parse_theorem_counter(config):
+    return config.proof_theorem_counter
+
+
+def parse_theorem_labels(config):
+    return config.proof_theorem_labels
+
+
+# directives are built according to default labels
+# user can only overwrite existing labels
+DEFAULT_THEOREM_LABELS = {
+    "lemma": "Lemma",
+    "theorem": "Theorem",
+    "corollary": "Corollary",
+    "property": "Property",
+    "example": "Example",
+    "definition": "Definition",
+    "proof": "Proof",
+    "conjecture": "Conjecture",
+    "algorithm": "Algorithm",
+    "observation": "Observation",
+}
 
 
 def setup(app):
     """Plugin setup"""
     app.add_stylesheet("proof.css")
     app.add_javascript("proof.js")
+
+    app.add_config_value(THEOREMS, DEFAULT_THEOREM_LABELS, "env")
+    app.add_config_value(COUNTER, "chapter", "env")
 
     app.add_node(
         ProofNode,
@@ -249,13 +287,10 @@ def setup(app):
         latex=(latex_visit_content_node, latex_depart_content_node),
     )
 
-    app.add_directive(PREFIX + "property", StatementEnvironment)
-    app.add_directive(PREFIX + "lemma", StatementEnvironment)
-    app.add_directive(PREFIX + "example", StatementEnvironment)
-    app.add_directive(PREFIX + "theorem", StatementEnvironment)
-    app.add_directive(PREFIX + "definition", StatementEnvironment)
-    app.add_directive(PREFIX + "proof", ProofEnvironment)
-    app.add_directive(PREFIX + "conjecture", StatementEnvironment)
-    app.add_directive(PREFIX + "algorithm", StatementEnvironment)
+    for environment in DEFAULT_THEOREM_LABELS:
+        if environment.strip() == "proof":
+            app.add_directive(PREFIX + environment, ProofEnvironment)
+        else:
+            app.add_directive(PREFIX + environment, StatementEnvironment)
 
     app.connect("builder-inited", builder_inited)
