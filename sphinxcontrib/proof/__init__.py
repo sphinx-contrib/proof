@@ -72,8 +72,8 @@ class StatementEnvironment(Directive):
         targetnode = nodes.target("", "", ids=[targetid])
 
         node = StatementNode("\n".join(self.content))
-        node["name"] = self.name[len(PREFIX) :]
-        node["classes"] += ["proof", "proof-type-{}".format(node["name"])]
+        node["label"] = self.name[len(PREFIX) :]
+        node["classes"] += ["proof", "proof-type-{}".format(node["label"])]
         if self.arguments:
             node["title"] = self.arguments[0]
 
@@ -94,12 +94,12 @@ def html_visit_statement_node(self, node):
     self.body.append(self.starttag(node, "div"))
     self.body.append("""<div class="proof-title">""")
     self.body.append(
-        u"""<span class="proof-title-name">{}</span>""".format(
-            labels.get(node["name"], "unknown-theorem-type")
+        u"""<span class="proof-title-label">{}</span>""".format(
+            labels.get(node["label"], "unknown-theorem-type")
         )
     )
     if "title" in node:
-        self.body.append("""<span class="proof-title-content">""")
+        self.body.append("""<span class="proof-title-name">""")
         self.body.append(u"({})".format(node["title"]))
         self.body.append("""</span>""")
     self.body.append("""</div>""")
@@ -128,7 +128,7 @@ def html_depart_content_node(self, node):
 
 def latex_visit_statement_node(self, node):
     """Enter :class:`StatementNode` in LaTeX builder."""
-    self.body.append(r"\begin{{{}}}".format(node["name"]))
+    self.body.append(r"\begin{{{}}}".format(node["label"]))
     if "title" in node:
         self.body.append("[{}]".format(node["title"]))
     self.body.append("\n")
@@ -136,7 +136,7 @@ def latex_visit_statement_node(self, node):
 
 def latex_depart_statement_node(self, node):
     """Leave :class:`StatementNode` in LaTeX builder."""
-    self.body.append(r"\end{{{}}}".format(node["name"]))
+    self.body.append(r"\end{{{}}}".format(node["label"]))
     self.body.append("\n")
 
 

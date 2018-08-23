@@ -4,6 +4,7 @@
     * Custom theorem labels can be added in the configuration files.
     * More options for the LaTeX build.
     * Add python 3.7 support.
+    * Internally, rename `name` to `label`, and `content` to `name`.
 
     -- Louis Paternault <spalax+python@gresille.org>
 
