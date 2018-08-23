@@ -7,8 +7,7 @@ typeset theorems, proofs, etc. to both HTML and LaTeX builders.
 Example
 -------
 
-.. proof:theorem::
-   title: Example
+.. proof:theorem:: Example
 
     A ``.. proof:theorem::`` statement produces a theorem.
 
