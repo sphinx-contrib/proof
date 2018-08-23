@@ -1,3 +1,11 @@
+* sphinxcontrib-proof 1.1.0 (unreleased)
+
+    * Internationalisation: Custom theorem labels can be set in configuration file (thanks Dominic Charrier). Closes #2.
+    * Custom theorem labels can be added in the configuration files.
+    * More options for the LaTeX build.
+
+    -- Louis Paternault <spalax+python@gresille.org>
+
 * sphinxcontrib-proof 1.0.1 (2017-01-01)
 
     * Fix wheel.
