@@ -3,6 +3,7 @@
     * Internationalisation: Custom theorem labels can be set in configuration file (thanks Dominic Charrier). Closes #2.
     * Custom theorem labels can be added in the configuration files.
     * More options for the LaTeX build.
+    * Add python 3.7 support.
 
     -- Louis Paternault <spalax+python@gresille.org>
 
