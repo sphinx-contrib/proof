@@ -11,6 +11,10 @@
   font-size: 120%;
 }
 
+.proof-title-name {
+  padding-left: .3em;
+}
+
 /* Content */
 .proof-content {
   border: 1px solid #9fb1b4;
