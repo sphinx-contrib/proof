@@ -155,8 +155,6 @@ def latex_depart_content_node(self, node):
 def _latex_preamble_iterator(config):
     labels = config.proof_theorem_labels
 
-    yield config.latex_elements.get("preamble", "")
-
     yield r"\makeatletter"
 
     if config.latex_proof_counter:
