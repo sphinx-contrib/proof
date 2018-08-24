@@ -204,7 +204,7 @@ def setup(app):
     app.add_javascript("proof.js")
 
     app.add_config_value("proof_theorem_labels", PROOF_THEOREM_LABELS, "env")
-    app.add_config_value("latex_proof_counter", "", "env")
+    app.add_config_value("latex_proof_counter", "chapter", "env")
     app.add_config_value("latex_proof_main", "theorem", "env")
     app.add_config_value("latex_proof_notheorem", [], "env")
 
