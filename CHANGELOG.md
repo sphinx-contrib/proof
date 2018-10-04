@@ -6,6 +6,7 @@
     * More options for the LaTeX build.
     * Add python 3.7 support.
     * Internally, rename `name` to `label`, and `content` to `name`.
+    * Add `singlehtml` builder.
 
     -- Louis Paternault <spalax+python@gresille.org>
 

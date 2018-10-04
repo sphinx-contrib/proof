@@ -375,7 +375,7 @@ def builder_inited(app):
         if "preamble" not in config.latex_elements:
             config.latex_elements["preamble"] = ""
         config.latex_elements["preamble"] += latex_preamble(config)
-    if app.builder.name == "html":
+    if app.builder.name in ("html", "singlehtml"):
         config.html_proof_title_template_compiled = jinja2.Template(
             config.html_proof_title_template
         )
@@ -401,11 +401,13 @@ def setup(app):
     app.add_node(
         StatementNode,
         html=(html_visit_statement_node, html_depart_statement_node),
+        singlehtml=(html_visit_statement_node, html_depart_statement_node),
         latex=(latex_visit_statement_node, latex_depart_statement_node),
     )
     app.add_node(
         ContentNode,
         html=(html_visit_content_node, html_depart_content_node),
+        singlehtml=(html_visit_content_node, html_depart_content_node),
         latex=(latex_visit_content_node, latex_depart_content_node),
     )
 
