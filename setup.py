@@ -39,7 +39,7 @@ setup(
         "sphinxcontrib.proof"
     ],  # TODO: Remove this line when bug https://github.com/pypa/setuptools/issues/97 is fixed.
     setup_requires=["hgtools"],
-    install_requires=["sphinx>=1.5.2"],
+    install_requires=["jinja2", "sphinx>=1.5.2"],
     include_package_data=True,
     author="Louis Paternault",
     author_email="spalax+python@gresille.org",
