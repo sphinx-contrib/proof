@@ -277,7 +277,7 @@ def html_visit_statement_node(self, node):
         number = None
     self.body.append(self.starttag(node, "div"))
     self.body.append(
-        self.builder.config.html_proof_title_template_compiled.render(
+        jinja2.Template(self.builder.config.html_proof_title_template).render(
             number=number,
             thmtype=thmtypes[node["thmtype"]],
             title=node.get("title", None),
@@ -375,10 +375,6 @@ def builder_inited(app):
         if "preamble" not in config.latex_elements:
             config.latex_elements["preamble"] = ""
         config.latex_elements["preamble"] += latex_preamble(config)
-    if app.builder.name in ("html", "singlehtml"):
-        config.html_proof_title_template_compiled = jinja2.Template(
-            config.html_proof_title_template
-        )
 
 
 def setup(app):
