@@ -1,8 +1,6 @@
 `sphinxcontrib-proof` ∎ Typeset theorems, proofs, properties…
 =============================================================
 
-    **Note:** It's 2018, and this project is still maintained: I has very few updates, because it *just works*.
-
 This `sphinx <http://sphinx.pocoo.org/>`__ extension provides some directives
 to typeset theorems, properties, proofs, etc. You can see it in action in
 `Jouets' documentation <http://jouets.readthedocs.io/fr/latest/dobble/math/>`_.
