@@ -11,41 +11,49 @@ Example
 
 Consider the following text.
 
-  .. proof:definition::
-     :label: right
+  .. _righttriangle:
+
+  .. proof:definition:: Right triangle
   
      A *right triangle* is a triangle in which one angle is a right angle.
   
+  .. _pythagorean:
+
   .. proof:theorem:: Pythagorean theorem
-     :label: pythagorean
   
-     In a :thm:`right triangle <right>`, the square of the hypotenuse is equal to the sum of the squares of the other two sides.
+     In a :ref:`righttriangle`, the square of the hypotenuse is equal to the sum of the squares of the other two sides.
   
+  .. _proof:
+
   .. proof:proof::
   
      The proof is left to the reader.
   
-  You can label and reference definition and theorems (e.g. :thm:`Pythagorean theorem <pythagorean>`, which is numbered as :thm:`pythagorean`).
+  You can label and reference definition and theorems (e.g. :numref:`theorem {number} <pythagorean>`). You can also reference proofes (see the :ref:`proof of the Pythagorean theorem <proof>`).
 
-To produce the above result, the following code was used (as well as `this CSS file <_static/proof.css>`__).
+To produce the above result, the following code was used (as well as `this CSS file <_static/proof.css>`__, and the :ref:`relevant configuration options <numbered-theorems>`).
 
 .. code-block:: rst
 
-     .. proof:definition::
-        :label: right
-     
-        A *right triangle* is a triangle in which one angle is a right angle.
-     
-     .. proof:theorem:: Pythagorean theorem
-        :label: pythagorean
-     
-        In a :thm:`right triangle <right>`, the square of the hypotenuse is equal to the sum of the squares of the other two sides.
-     
-     .. proof:proof::
-     
-        The proof is left to the reader.
-     
-     You can label and reference definition and theorems (e.g. :thm:`Pythagorean theorem <pythagorean>`, which is numbered as :thm:`pythagorean`).
+  .. _righttriangle:
+
+  .. proof:definition:: Right triangle
+  
+     A *right triangle* is a triangle in which one angle is a right angle.
+  
+  .. _pythagorean:
+
+  .. proof:theorem:: Pythagorean theorem
+  
+     In a :ref:`righttriangle`, the square of the hypotenuse is equal to the sum of the squares of the other two sides.
+  
+  .. _proof:
+
+  .. proof:proof::
+  
+     The proof is left to the reader.
+  
+  You can label and reference definition and theorems (e.g. :numref:`theorem {number} <pythagorean>`). You can also reference proofes (see the :ref:`proof of the Pythagorean theorem <proof>`).
 
 
 Download and Install

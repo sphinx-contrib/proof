@@ -7,16 +7,36 @@ FAQ
    :local:
    :depth: 1
 
+.. _latex-define-theorems:
+
+How do I define LaTeX theorems?
+-------------------------------
+
+By default, this packages defines LaTeX theorems for you. Sometimes, this is not what you want. To disable this, you have to:
+
+* set ``proof_latex_notheorem`` to the list of theorem types you want to define yourself (e.g. ``proof_latex_notheorem = ["definition", "theorem", "proof"]``);
+* define those theorems (or environment) in ``latex_elements['preamble']``. For instance:
+
+.. code-block:: python3
+
+    latex_elements = {
+        # Additional stuff for the LaTeX preamble.
+        'preamble': r"""
+           % My custom definition of environments definition, theorem, proof.
+        """,
+    }
+    proof_latex_notheorem = ["definition", "theorem", "proof"]
+
 .. _latex-unnumbered-proof:
 
-Unnumbered proof with LaTeX
----------------------------
+LaTeX adds numbers to my proofs. How do I remove them?
+------------------------------------------------------
 
 Using the default configuration, LaTeX will number proofs (e.g. *Definition 1*, *Theorem 2*, *Proof 3*), which is probably not what you want.
 
 To disable proof numbering with LaTeX, you have to :
 
-* Add ``"proof"`` to ``latex_proof_notheorem``. Sphinx will define a ``proof::proof`` directive, but LaTeX will not define a ``proof`` environment".
+* Add ``"proof"`` to ``proof_latex_notheorem``. Sphinx will define a ``proof::proof`` directive, but LaTeX will not define a ``proof`` environment".
 * This ``proof`` environment has to be defined in ``latex_elements['preamble']``, either with your custom command, or by importing package `amsthm <https://www.ctan.org/pkg/amsthm>`__, which defines such a ``proof`` environment (which is not numbered).
 
 The ``conf.py`` contains:
@@ -29,19 +49,49 @@ The ``conf.py`` contains:
             \usepackage{amsthm}
         """,
     }
-    latex_proof_notheorem = ["proof"]
+    proof_latex_notheorem = ["proof"]
 
-.. _unnumbered-theorems:
-
-Unnumbered theorems
--------------------
-
-In both cases, referencing theorems using ``:thm:`` will use a bogus theorem number. So, reference them using ``:thm:`my custom name <pythagorean>`` instead of ``:thm:`pythagorean```.
+How to have different counters for definitions, theorems, etc.?
+---------------------------------------------------------------
 
 HTML
 """"
 
-Easy: in the configuration, use ``html_proof_number_theorems = False``.
+You can't.
+
+LaTeX
+"""""
+
+If option ``proof_latex_main`` is set to ``None``, definitions, theorems, properties, etc. will have different counters.
+
+For more complex configuration (e.g. theorems and properties share a counter, but definitions do not), you have to define theorems yourself (see :ref:`latex-define-theorems`).
+
+.. _numbered-theorems:
+
+How to number theorems?
+------------------------
+
+HTML
+""""
+
+By default, theorems are not numbered. To number them, set ``numfig = True`` in the configuration file (see :ref:`html-numbering` to see advanced options).
+
+LaTeX
+"""""
+
+By default, theorems are numbered. Nothing to configure here.
+
+.. _unnumbered-theorems:
+
+How not to number theorems?
+----------------------------
+
+In both cases, theorems cannot be referenced using ``:numref:``, but with ``:ref:``.
+
+HTML
+""""
+
+Easy: in the configuration, use ``numfig = False`` (or do not define ``numfig``, which is ``False`` by default).
 
 LaTeX
 """""
@@ -50,7 +100,7 @@ To disable theorem numbering, you have to define theorems yourself. That is:
 
 * tell sphinx not to define theorem environments::
 
-    latex_proof_notheorem = ["algorithm", "conjecture", "corollary", "definition", "example", "lemma", "observation", "proof", "property", "theorem"]
+    proof_latex_notheorem = ["algorithm", "conjecture", "corollary", "definition", "example", "lemma", "observation", "proof", "property", "theorem"]
 
 * define theorems in LaTeX, using the starred command (provided by `amsthm` or `ntheorem`)::
 
@@ -66,37 +116,22 @@ To disable theorem numbering, you have to define theorems yourself. That is:
 
 .. _latex-numbering:
 
-Custom LaTeX numbering
-----------------------
+How to customize LaTeX numbering?
+----------------------------------
 
-LaTeX is great at counting stuff, but by default, Sphinx is counting them instead. Allowing Sphinx to count and reference theorems with as many options as LaTeX would mean rewriting half of the Sphinx code in this package. I do not want to do or maintain this.
+LaTeX is great at counting stuff, and Sphinx do not intervene in this. To customize theorem numbering in LaTeX, you can:
 
-If you really want to use the power of LaTeX to count your theorems, take the :ref:`previous answer <unnumbered-theorems>` as an example, that is:
+* for simple cases, tweak options :ref:`proof_latex_main <proof_latex_main>` and :ref:`proof_latex_parent <proof_latex_parent>`;
+* for complex cases, tell Sphinx not to define theorems (see entry :ref:`latex-define-theorems`) and define them yourself in configuration option :ref:`latex_elements <latex_elements>`.
 
-* tell sphinx not to define theorem environments::
+Do you want a last, irrelevant, example?
+----------------------------------------
 
-    latex_proof_notheorem = ["algorithm", "conjecture", "corollary", "definition", "example", "lemma", "observation", "proof", "property", "theorem"]
+Here is an irrelevent theorem (`source <https://www.sciencedirect.com/science/article/pii/S1570868310000455>`__) to show that theorems can be referenced from the same page (:numref:`Theorem {number} <selfpromotion>`) or from other pages (:numref:`Theorem {number} <righttriangle>`).
 
-* do whatever you want with LaTeX, using the ``latex_elements`` variable::
-
-    latex_elements = {
-        # Additional stuff for the LaTeX preamble.
-        "preamble": r"""
-           \usepackage{amsthm}
-
-           % Complex stuff with theorems.
-        """,
-     }
-
-Note that references to theorems use the Sphinx counter, which will be wrong in this case.
-
-Another example
-----------------
-
-An irrelevent theorem (`source <https://www.sciencedirect.com/science/article/pii/S1570868310000455>`__) to show that theorems can be referenced from the same page (:thm:`self-promotion`) or from other pages (:thm:`right`).
+.. _selfpromotion:
 
 .. proof:theorem::
-  :label: self-promotion
 
    Let Λ be the modal logic of the quasimodal class K of frames, and let L be a class of frames containing K and having the same modal logic Λ.
 
