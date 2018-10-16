@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.abspath(".."))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinxcontrib.proof"]
+extensions = ["sphinx.ext.intersphinx", "sphinxcontrib.proof"]
 
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['_templates']
@@ -104,6 +104,10 @@ pygments_style = "sphinx"
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    "sphinx": ("http://www.sphinx-doc.org/en/master/", None),
+}
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -203,6 +207,9 @@ html_static_path = ["_static"]
 # Output file base name for HTML help builder.
 htmlhelp_basename = "Proofdoc"
 
+numfig = True
+numfig_format = {"proof": "Proof %s"}
+
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
@@ -218,7 +225,7 @@ latex_elements = {
     # 'figure_align': 'htbp',
 }
 
-latex_proof_notheorem = ["proof"]
+proof_latex_notheorem = ["proof"]
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,

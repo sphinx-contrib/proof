@@ -15,7 +15,7 @@
 
 """Installer"""
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 import codecs
 import os
 
@@ -34,10 +34,7 @@ def readme():
 setup(
     name="sphinxcontrib-proof",
     version="1.0.1",
-    packages=find_packages(exclude=["test*"])
-    + [
-        "sphinxcontrib.proof"
-    ],  # TODO: Remove this line when bug https://github.com/pypa/setuptools/issues/97 is fixed.
+    packages=find_namespace_packages(exclude=["test*"]),
     setup_requires=["hgtools"],
     install_requires=["jinja2", "sphinx>=1.8.0"],
     include_package_data=True,
