@@ -29,7 +29,7 @@ Consider the following text.
   
      The proof is left to the reader.
   
-  You can label and reference definition and theorems (e.g. :numref:`theorem {number} <pythagorean>`). You can also reference proofes (see the :ref:`proof of the Pythagorean theorem <proof>`).
+  You can label and reference definition and theorems (e.g. :numref:`theorem {number} <pythagorean>`). You can also reference proofs (see the :ref:`proof of the Pythagorean theorem <proof>`).
 
 To produce the above result, the following code was used (as well as `this CSS file <_static/proof.css>`__, and the :ref:`relevant configuration options <numbered-theorems>`).
 
@@ -53,7 +53,7 @@ To produce the above result, the following code was used (as well as `this CSS f
   
      The proof is left to the reader.
   
-  You can label and reference definition and theorems (e.g. :numref:`theorem {number} <pythagorean>`). You can also reference proofes (see the :ref:`proof of the Pythagorean theorem <proof>`).
+  You can label and reference definition and theorems (e.g. :numref:`theorem {number} <pythagorean>`). You can also reference proofs (see the :ref:`proof of the Pythagorean theorem <proof>`).
 
 
 Download and Install
