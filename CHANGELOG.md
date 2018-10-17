@@ -1,4 +1,4 @@
-* sphinxcontrib-proof 1.1.0 (unreleased)
+* sphinxcontrib-proof 1.1.0 (2018-10-17)
 
     * Internationalisation: Custom theorem types can be set in configuration file (thanks Dominic Charrier). Closes #2.
     * Custom theorem types can be added in the configuration files.
@@ -6,7 +6,7 @@
     * More options for the LaTeX build.
     * Add python 3.7 support.
     * Internally, rename `name` to `label`, and `content` to `name`.
-    * Add `singlehtml` builder.
+    * Add `singlehtml` builder. Closes #5.
 
     -- Louis Paternault <spalax+python@gresille.org>
 
