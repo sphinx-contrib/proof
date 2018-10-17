@@ -15,7 +15,7 @@
 
 """Installer"""
 
-from setuptools import setup, find_namespace_packages
+from setuptools import setup
 import codecs
 import os
 
@@ -34,8 +34,7 @@ def readme():
 setup(
     name="sphinxcontrib-proof",
     version="1.0.1",
-    packages=find_namespace_packages(exclude=["test*"]),
-    namespace_packages=["sphinxcontrib"],
+    packages=["sphinxcontrib.proof"],
     setup_requires=["hgtools"],
     install_requires=["jinja2", "sphinx>=1.8.0"],
     include_package_data=True,
