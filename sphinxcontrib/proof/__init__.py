@@ -17,8 +17,7 @@
 
 import logging
 import os
-
-import jinja2
+import types
 
 from docutils import nodes
 from docutils.nodes import make_id
@@ -52,15 +51,6 @@ PROOF_THEOREM_TYPES = {
 
 PROOF_HTML_NONUMBERS = ["proof"]
 
-PROOF_HTML_TITLE_TEMPLATE = u"""
-    <div class="proof-title">
-        <span class="proof-type">{{ thmtype }} {% if number %}{{number}}{% endif %}</span>
-        {% if title %}
-            <span class="proof-title-name">({{ title }})</span>
-        {% endif %}
-    </div>
-"""
-
 
 ################################################################################
 # Docutils
@@ -83,6 +73,12 @@ class NumberedStatementNode(_StatementNode):
     """Statement with a number."""
 
     numbered = True
+
+
+class MetaNumberedStatementNode(type):
+    def __new__(metacls, name, bases, attrs, **more):
+        attrs.update({"thmtype": more["thmtype"]})
+        return super().__new__(metacls, name, bases, attrs)
 
 
 class UnnumberedStatementNode(_StatementNode):
@@ -120,7 +116,7 @@ class StatementEnvironment(SphinxDirective):
         if thmtype in env.config.proof_html_nonumbers:
             node = UnnumberedStatementNode("\n".join(self.content))
         else:
-            node = NumberedStatementNode("\n".join(self.content))
+            node = env.app.proof_statement_nodes[thmtype]("\n".join(self.content))
         node["thmtype"] = thmtype
         if self.arguments:
             node["title"] = self.arguments[0]
@@ -144,21 +140,7 @@ class ProofDomain(StandardDomain):
 ################################################################################
 # HTML
 def html_visit_statement_node(self, node):
-    """Enter :class:`_StatementNode` in HTML builder."""
-
-    def get_fignumber():
-        # Copied from the sphinx project: sphinx.writers.html.HTMLTranslator.add_fignumber()
-        if not isinstance(node, NumberedStatementNode):
-            return ""
-        figure_id = node["ids"][0]
-        if self.builder.name == "singlehtml":
-            key = u"%s/%s" % (self.docnames[-1], "proof")
-        else:
-            key = "proof"
-        if figure_id in self.builder.fignumbers.get(key, {}):
-            return ".".join(map(str, self.builder.fignumbers[key][figure_id]))
-        return ""
-
+    """Enter :class:`StatementNode` in HTML builder."""
     config = self.builder.env.config
     thmtypes = config.proof_theorem_types
     thmtype = node["thmtype"]
@@ -166,13 +148,20 @@ def html_visit_statement_node(self, node):
     self.body.append(
         self.starttag(node, "div", CLASS="proof proof-type-{}".format(thmtype))
     )
-    self.body.append(
-        jinja2.Template(self.builder.config.proof_html_title_template).render(
-            number=get_fignumber(),
-            thmtype=thmtypes[node["thmtype"]],
-            title=node.get("title", None),
+    self.body.append("""<div class="proof-title">""")
+    if config.numfig and node.numbered:
+        self.add_fignumber(node)
+    else:
+        self.body.append(
+            """<span class="caption-number">{}</span>""".format(
+                config.proof_theorem_types[thmtype]
+            )
         )
-    )
+    if "title" in node:
+        self.body.append(
+            """<span class="proof-title-name">({})</span>""".format(node["title"])
+        )
+    self.body.append("""</div>""")
 
 
 def html_depart_statement_node(self, node):
@@ -286,21 +275,28 @@ def setup(app):
     app.add_stylesheet("proof.css")
     app.add_javascript("proof.js")
 
-    app.add_config_value("proof_html_title_template", PROOF_HTML_TITLE_TEMPLATE, "env")
     app.add_config_value("proof_html_nonumbers", PROOF_HTML_NONUMBERS, "env")
     app.add_config_value("proof_latex_main", "theorem", "env")
     app.add_config_value("proof_latex_notheorem", [], "env")
     app.add_config_value("proof_latex_parent", None, "env")
     app.add_config_value("proof_theorem_types", PROOF_THEOREM_TYPES, "env")
 
-    app.add_enumerable_node(
-        NumberedStatementNode,
-        "proof",
-        title_getter,
-        html=(html_visit_statement_node, html_depart_statement_node),
-        singlehtml=(html_visit_statement_node, html_depart_statement_node),
-        latex=(latex_visit_statement_node, latex_depart_statement_node),
-    )
+    app.proof_statement_nodes = {}
+    for thmtype in app.config.proof_theorem_types:
+        CustomNumberedStatementNode = types.new_class(
+            "{}StatementNode".format(thmtype.capitalize()),
+            (NumberedStatementNode,),
+            {"metaclass": MetaNumberedStatementNode, "thmtype": thmtype},
+        )
+        app.proof_statement_nodes[thmtype] = CustomNumberedStatementNode
+        app.add_enumerable_node(
+            CustomNumberedStatementNode,
+            "proof:{}".format(thmtype),
+            title_getter,
+            html=(html_visit_statement_node, html_depart_statement_node),
+            singlehtml=(html_visit_statement_node, html_depart_statement_node),
+            latex=(latex_visit_statement_node, latex_depart_statement_node),
+        )
     app.add_node(
         UnnumberedStatementNode,
         html=(html_visit_statement_node, html_depart_statement_node),
