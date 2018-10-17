@@ -18,3 +18,4 @@ exclude = '''
 
 [build-system]
 requires = ["setuptools>=40.1.0"]
+build-backend = "setuptools.build_meta"
