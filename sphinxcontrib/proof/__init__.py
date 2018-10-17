@@ -271,7 +271,7 @@ def generate_latex_preamble(app):
 def init_numfig_format(app, config):
     """Initialize :confval:`numfig_format`."""
     # pylint: disable=unused-argument
-    numfig_format = {"numfig": "Proof %s"}
+    numfig_format = {"proof": "Proof %s"}
 
     # override default labels by configuration
     numfig_format.update(config.numfig_format)
