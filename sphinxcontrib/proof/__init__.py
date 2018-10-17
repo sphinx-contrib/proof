@@ -70,7 +70,7 @@ def title_getter(node):
     """Return the title of a node (or `None`)."""
     if "title" in node:
         return node["title"]
-    return None
+    return ""
 
 
 class _StatementNode(nodes.General, nodes.Element):
