@@ -33,7 +33,6 @@ from sphinx.util.docutils import SphinxDirective
 from sphinx.util.nodes import set_source_info, make_refnode
 
 VERSION = "1.1.0"
-PREFIX = "proof:"
 
 ################################################################################
 # Configuration
@@ -116,7 +115,7 @@ class StatementEnvironment(SphinxDirective):
         """Render this environment"""
         env = self.state.document.settings.env
 
-        thmtype = self.name[len(PREFIX) :]
+        thmtype = self.name[len("proof:") :]
         if thmtype in env.config.proof_html_nonumbers:
             node = UnnumberedStatementNode("\n".join(self.content))
         else:
@@ -138,7 +137,7 @@ class ProofDomain(StandardDomain):
     """Proof domain"""
 
     name = "proof"
-    label = "proof"
+    label = "Proof"
 
 
 ################################################################################
@@ -315,7 +314,7 @@ def setup(app):
     )
 
     for environment in app.config.proof_theorem_types:
-        app.add_directive(PREFIX + environment, StatementEnvironment)
+        app.add_directive_to_domain("proof", environment, StatementEnvironment)
 
     app.connect("builder-inited", generate_latex_preamble)
     app.connect("config-inited", init_numfig_format)
