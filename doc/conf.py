@@ -231,7 +231,7 @@ proof_latex_notheorem = ["proof"]
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "Proof.tex", "Proof Documentation", "Louis Paternault", "manual")
+    (master_doc, "Proof.tex", "Proof Documentation", "Louis Paternault", "howto")
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -243,10 +243,10 @@ latex_logo = "_static/logo.pdf"
 # latex_use_parts = False
 
 # If true, show page references after internal links.
-# latex_show_pagerefs = False
+latex_show_pagerefs = True
 
 # If true, show URL addresses after external links.
-# latex_show_urls = False
+latex_show_urls = "footnote"
 
 # Documents to append as an appendix to all manuals.
 # latex_appendices = []
