@@ -140,19 +140,6 @@ class ProofDomain(StandardDomain):
 def html_visit_statement_node(self, node):
     """Enter :class:`_StatementNode` in HTML builder."""
 
-    def get_fignumber():
-        # Copied from the sphinx project: sphinx.writers.html.HTMLTranslator.add_fignumber()
-        if not isinstance(node, NumberedStatementNode):
-            return ""
-        figure_id = node["ids"][0]
-        if self.builder.name == "singlehtml":
-            key = u"%s/%s" % (self.docnames[-1], "proof")
-        else:
-            key = "proof"
-        if figure_id in self.builder.fignumbers.get(key, {}):
-            return ".".join(map(str, self.builder.fignumbers[key][figure_id]))
-        return ""
-
     thmtype = node["thmtype"]
 
     self.body.append(
