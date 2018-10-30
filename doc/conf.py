@@ -208,7 +208,6 @@ html_static_path = ["_static"]
 htmlhelp_basename = "Proofdoc"
 
 numfig = True
-numfig_format = {"proof": "Proof %s"}
 
 # -- Options for LaTeX output ---------------------------------------------
 

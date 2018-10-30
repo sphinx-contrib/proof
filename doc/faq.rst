@@ -127,7 +127,7 @@ LaTeX is great at counting stuff, and Sphinx do not intervene in this. To custom
 Do you want some irrelevant theorems?
 -------------------------------------
 
-Here is an irrelevent theorem (`source <https://www.sciencedirect.com/science/article/pii/S1570868310000455>`__) to show that theorems can be referenced from the same page (:numref:`Theorem {number} <selfpromotion>`) or from other pages (:numref:`Theorem {number} <righttriangle>`).
+Here is an irrelevent theorem (`source <https://www.sciencedirect.com/science/article/pii/S1570868310000455>`__) to show that theorems can be referenced from the same page (:numref:`selfpromotion`) or from other pages (:numref:`righttriangle`).
 
 .. _selfpromotion:
 

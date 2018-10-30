@@ -104,29 +104,6 @@ Common options
 HTML options
 """"""""""""
 
-* ``proof_html_title_template`` :
-
-  Template used when labeling theorems. Default is:
-
-  .. code-block:: html
-
-     <div class="proof-title">
-         <span class="proof-type">{{ thmtype }} {% if number %}{{number}}{% endif %}</span>
-         {% if title %}
-             <span class="proof-title-name">({{ title }})</span>
-         {% endif %}
-     </div>
-
-  This is a `jinja2 template <http://jinja.pocoo.org/docs/2.10/templates/>`_, with available variables being:
-
-  - ``thmtype``: type of the theorem (Theorem, Proof, or any of the *values* of configuration option :ref:`proof_theorem_types <proof_theorem_types>`);
-  - ``number``: theorem number (``None`` if unnumbered);
-  - ``title``: theorem title (``None`` if anonymous).
-
-  .. versionchanged:: 1.1.0
-     New in version 1.1.0.
-
-
 .. _proof_html_nonumbers:
 
 * ``proof_html_nonumbers`` :
@@ -137,19 +114,24 @@ HTML options
   .. versionchanged:: 1.1.0
      New in version 1.1.0.
 
+* ``numfig_format``:
+
+  Theorems are named and referenced using values of :ref:`proof_theorem_types <proof_theorem_types>`. It is also possible to configure this using ``numfig_format``. With the following configuration, theorems, definitions and so on are named and referenced ``Foo 1``, ``Foo 2``, etc.
+
+  .. code-block:: python3
+
+     numfig_format = {
+         "proof": "Foo %s",
+     }
+
+  Note that all theorem types will share the same formatting string. I do not know why you would want that, but who knows?
+
 .. _html-numbering:
 
 HTML numbering
 """"""""""""""
 
 HTML numbering can be configured using `numfig <http://www.sphinx-doc.org/en/master/usage/configuration.html#confval-numfig>`__, `numfig_format <http://www.sphinx-doc.org/en/master/usage/configuration.html#confval-numfig_format>`__, and `numfig_secnum_format <http://www.sphinx-doc.org/en/master/usage/configuration.html#confval-numfig_secnum_depth>`__.
-
-Note that using ``:numref:`pythagorean``` will produce :numref:`pythagorean` (instead of :numref:`Theorem {number} <pythagorean>`). This is because although the counter is shared between definitions, theorems, etc., one *have to* share the same ``numref_format`` option (which is set to ``Proof %s`` by default) [#numrefpatch]_.
-
-As a workaround, you can use ``:numref:`Theorem {number} <pythagorean>``` to produce :numref:`Theorem {number} <pythagorean>`.
-
-.. versionchanged:: 1.1.0
-  New in version 1.1.0.
 
 LaTeX options
 """""""""""""

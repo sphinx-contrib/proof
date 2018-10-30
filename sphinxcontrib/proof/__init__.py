@@ -51,16 +51,6 @@ PROOF_THEOREM_TYPES = {
 
 PROOF_HTML_NONUMBERS = ["proof"]
 
-PROOF_HTML_TITLE_TEMPLATE = u"""
-    <div class="proof-title">
-        <span class="proof-type">{{ thmtype }} {% if number %}{{number}}{% endif %}</span>
-        {% if title %}
-            <span class="proof-title-name">({{ title }})</span>
-        {% endif %}
-    </div>
-"""
-
-
 ################################################################################
 # Docutils
 
@@ -82,6 +72,9 @@ class NumberedStatementNode(_StatementNode):
     """Statement with a number."""
 
     numbered = True
+
+    def numfig_format(self, builder, figtype, ref):
+        return builder.env.config.proof_theorem_types[self["thmtype"]] + " %s "
 
 
 class UnnumberedStatementNode(_StatementNode):
@@ -158,20 +151,23 @@ def html_visit_statement_node(self, node):
             return ".".join(map(str, self.builder.fignumbers[key][figure_id]))
         return ""
 
-    config = self.builder.env.config
-    thmtypes = config.proof_theorem_types
     thmtype = node["thmtype"]
 
     self.body.append(
         self.starttag(node, "div", CLASS="proof proof-type-{}".format(thmtype))
     )
-    self.body.append(
-        jinja2.Template(self.builder.config.proof_html_title_template).render(
-            number=get_fignumber(),
-            thmtype=thmtypes[node["thmtype"]],
-            title=node.get("title", None),
-        )
-    )
+
+    self.body.append("""<div class="proof-title">""")
+    if isinstance(node, NumberedStatementNode):
+        self.add_fignumber(node)
+        title = node.get("title", None)
+        if title:
+            self.body.append(
+                """<span class="proof-title-name">({})</span>""".format(title)
+            )
+    else:
+        self.body.append(self.builder.env.config.proof_theorem_types[thmtype])
+    self.body.append("""</div>""")
 
 
 def html_depart_statement_node(self, node):
@@ -267,16 +263,6 @@ def generate_latex_preamble(app):
         config.latex_elements["preamble"] += latex_preamble(config)
 
 
-def init_numfig_format(app, config):
-    """Initialize :confval:`numfig_format`."""
-    # pylint: disable=unused-argument
-    numfig_format = {"proof": "Proof %s"}
-
-    # override default labels by configuration
-    numfig_format.update(config.numfig_format)
-    config.numfig_format = numfig_format
-
-
 def setup(app):
     """Plugin setup"""
 
@@ -285,7 +271,6 @@ def setup(app):
     app.add_stylesheet("proof.css")
     app.add_javascript("proof.js")
 
-    app.add_config_value("proof_html_title_template", PROOF_HTML_TITLE_TEMPLATE, "env")
     app.add_config_value("proof_html_nonumbers", PROOF_HTML_NONUMBERS, "env")
     app.add_config_value("proof_latex_main", "theorem", "env")
     app.add_config_value("proof_latex_notheorem", [], "env")
@@ -317,4 +302,3 @@ def setup(app):
         app.add_directive_to_domain("proof", environment, StatementEnvironment)
 
     app.connect("builder-inited", generate_latex_preamble)
-    app.connect("config-inited", init_numfig_format)
