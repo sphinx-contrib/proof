@@ -74,6 +74,8 @@ class NumberedStatementNode(_StatementNode):
     numbered = True
 
     def numfig_format(self, builder, figtype, ref):
+        """Give each theorem type its own name."""
+        # pylint: disable=unused-argument
         return builder.env.config.proof_theorem_types[self["thmtype"]] + " %s "
 
 
