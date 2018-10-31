@@ -258,13 +258,11 @@ def latex_preamble(config):
 # Setup
 
 
-def generate_latex_preamble(app):
+def generate_latex_preamble(app, config):
     """Hook called when builder has been inited."""
-    config = app.builder.config
-    if app.builder.name == "latex":
-        if "preamble" not in config.latex_elements:
-            config.latex_elements["preamble"] = ""
-        config.latex_elements["preamble"] += latex_preamble(config)
+    if "preamble" not in config.latex_elements:
+        config.latex_elements["preamble"] = ""
+    config.latex_elements["preamble"] += latex_preamble(config)
 
 
 def init_numfig_format(app, config):
@@ -316,5 +314,5 @@ def setup(app):
     for environment in app.config.proof_theorem_types:
         app.add_directive_to_domain("proof", environment, StatementEnvironment)
 
-    app.connect("builder-inited", generate_latex_preamble)
+    app.connect("config-inited", generate_latex_preamble)
     app.connect("config-inited", init_numfig_format)
