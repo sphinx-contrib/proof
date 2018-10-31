@@ -81,7 +81,7 @@ class _StatementNode(nodes.General, nodes.Element):
 class NumberedStatementNode(_StatementNode):
     """Statement with a number."""
 
-    numbered = True
+    pass
 
 
 class UnnumberedStatementNode(_StatementNode):
@@ -90,7 +90,7 @@ class UnnumberedStatementNode(_StatementNode):
     Some builders ignore this.
     """
 
-    numbered = False
+    pass
 
 
 class ContentNode(nodes.General, nodes.Element):
