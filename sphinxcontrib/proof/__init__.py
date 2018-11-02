@@ -71,8 +71,6 @@ class _StatementNode(nodes.General, nodes.Element):
 class NumberedStatementNode(_StatementNode):
     """Statement with a number."""
 
-    numbered = True
-
     def numfig_format(self, builder, figtype, ref):
         """Give each theorem type its own name."""
         # pylint: disable=unused-argument
@@ -85,7 +83,7 @@ class UnnumberedStatementNode(_StatementNode):
     Some builders ignore this.
     """
 
-    numbered = False
+    pass
 
 
 class ContentNode(nodes.General, nodes.Element):
@@ -243,13 +241,11 @@ def latex_preamble(config):
 # Setup
 
 
-def generate_latex_preamble(app):
+def generate_latex_preamble(app, config):
     """Hook called when builder has been inited."""
-    config = app.builder.config
-    if app.builder.name == "latex":
-        if "preamble" not in config.latex_elements:
-            config.latex_elements["preamble"] = ""
-        config.latex_elements["preamble"] += latex_preamble(config)
+    if "preamble" not in config.latex_elements:
+        config.latex_elements["preamble"] = ""
+    config.latex_elements["preamble"] += latex_preamble(config)
 
 
 def setup(app):
