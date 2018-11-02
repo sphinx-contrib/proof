@@ -286,4 +286,4 @@ def setup(app):
     for environment in app.config.proof_theorem_types:
         app.add_directive_to_domain("proof", environment, StatementEnvironment)
 
-    app.connect("builder-inited", generate_latex_preamble)
+    app.connect("config-inited", generate_latex_preamble)
