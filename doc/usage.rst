@@ -184,14 +184,3 @@ and `javascript
 <https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/master/doc/_static/proof.js>`_)
 by placing them into your documentation static directory.
 Do not hotlink to those hosted here: they will change without notice.
-
-.. rubric:: Footnotes
-
-.. [#numrefpatch] To solve this, I could:
-
-   - fork Sphinx;
-   - rewrite half on Sphinx in my extension;
-   - propose a patch to the official Sphinx project.
-
-   For obvious reasons, I won't implement the first two solutions. I might try to implement the last one, but it will take time.
-
