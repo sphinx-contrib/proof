@@ -260,6 +260,7 @@ def latex_preamble(config):
 
 def generate_latex_preamble(app, config):
     """Hook called when builder has been inited."""
+    # pylint: disable=unused-argument
     if "preamble" not in config.latex_elements:
         config.latex_elements["preamble"] = ""
     config.latex_elements["preamble"] += latex_preamble(config)
