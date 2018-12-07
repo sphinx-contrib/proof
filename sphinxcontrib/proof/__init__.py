@@ -258,9 +258,13 @@ def latex_preamble(config):
 # Setup
 
 
-def generate_latex_preamble(app, config):
+def process_proof_theorem_types(app, config):
     """Hook called when builder has been inited."""
-    # pylint: disable=unused-argument
+    # Create directives
+    for environment in config.proof_theorem_types:
+        app.add_directive_to_domain("proof", environment, StatementEnvironment)
+
+    # Generate LaTeX preamble
     if "preamble" not in config.latex_elements:
         config.latex_elements["preamble"] = ""
     config.latex_elements["preamble"] += latex_preamble(config)
@@ -312,8 +316,5 @@ def setup(app):
         latex=(latex_visit_content_node, latex_depart_content_node),
     )
 
-    for environment in app.config.proof_theorem_types:
-        app.add_directive_to_domain("proof", environment, StatementEnvironment)
-
-    app.connect("config-inited", generate_latex_preamble)
+    app.connect("config-inited", process_proof_theorem_types)
     app.connect("config-inited", init_numfig_format)
