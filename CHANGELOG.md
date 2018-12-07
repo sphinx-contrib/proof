@@ -1,3 +1,9 @@
+* sphinxcontrib-proof 1.1.1 (unreleased)
+
+    * Config value `proof_theorem_types` is used *after* config values have been inited. Closes !7.
+
+    -- Louis Paternault <spalax+python@gresille.org>
+
 * sphinxcontrib-proof 1.1.0 (2018-10-17)
 
     * Internationalisation: Custom theorem types can be set in configuration file (thanks Dominic Charrier). Closes #2.
