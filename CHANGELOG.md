@@ -1,4 +1,4 @@
-* sphinxcontrib-proof 1.1.1 (unreleased)
+* sphinxcontrib-proof 1.1.1 (2018-12-07)
 
     * Config value `proof_theorem_types` is used *after* config values have been inited. Closes !7.
 

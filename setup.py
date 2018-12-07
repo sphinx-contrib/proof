@@ -1,4 +1,4 @@
-# Copyright 2017 Louis Paternault
+# Copyright 2017-2018 Louis Paternault
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ def readme():
 
 setup(
     name="sphinxcontrib-proof",
-    version="1.1.0",
+    version="1.1.1",
     packages=["sphinxcontrib.proof"],
     setup_requires=["hgtools"],
     install_requires=["jinja2", "sphinx>=1.8.0"],
