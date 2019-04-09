@@ -75,13 +75,9 @@ def title_getter(node):
 class _StatementNode(nodes.General, nodes.Element):
     """Statement"""
 
-    pass
-
 
 class NumberedStatementNode(_StatementNode):
     """Statement with a number."""
-
-    pass
 
 
 class UnnumberedStatementNode(_StatementNode):
@@ -90,13 +86,9 @@ class UnnumberedStatementNode(_StatementNode):
     Some builders ignore this.
     """
 
-    pass
-
 
 class ContentNode(nodes.General, nodes.Element):
     """Content of a proof or a statement"""
-
-    pass
 
 
 class StatementEnvironment(SphinxDirective):
@@ -210,16 +202,12 @@ def latex_depart_statement_node(self, node):
     self.body.append("\n")
 
 
-def latex_visit_content_node(self, node):
+def latex_visit_content_node(self, node):  # pylint: disable=unused-argument
     """Enter :class:`ContentNode` in LaTeX builder."""
-    # pylint: disable=unused-argument
-    pass
 
 
-def latex_depart_content_node(self, node):
+def latex_depart_content_node(self, node):  # pylint: disable=unused-argument
     """Leave :class:`ContentNode` in LaTeX builder."""
-    # pylint: disable=unused-argument
-    pass
 
 
 def _latex_preamble_iterator(config):

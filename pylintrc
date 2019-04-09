@@ -4,5 +4,4 @@ dummy-variables-rgx=_|dummy
 [MESSAGES CONTROL]
 disable=
     logging-format-interpolation,
-    unnecessary-pass,
     I
