@@ -1,3 +1,9 @@
+* sphinxcontrib-proof 1.2.0 (unreleased)
+
+    * Drop python3.6 support.
+
+    -- Louis Paternault <spalax+python@gresille.org>
+
 * sphinxcontrib-proof 1.1.1 (2018-12-07)
 
     * Config value `proof_theorem_types` is used *after* config values have been inited. Closes !7.
