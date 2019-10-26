@@ -51,7 +51,7 @@ PROOF_THEOREM_TYPES = {
 
 PROOF_HTML_NONUMBERS = ["proof"]
 
-PROOF_HTML_TITLE_TEMPLATE = u"""
+PROOF_HTML_TITLE_TEMPLATE = """
     <div class="proof-title">
         <span class="proof-type">{{ thmtype }} {% if number %}{{number}}{% endif %}</span>
         {% if title %}
@@ -143,7 +143,7 @@ def html_visit_statement_node(self, node):
             return ""
         figure_id = node["ids"][0]
         if self.builder.name == "singlehtml":
-            key = u"%s/%s" % (self.docnames[-1], "proof")
+            key = "%s/%s" % (self.docnames[-1], "proof")
         else:
             key = "proof"
         if figure_id in self.builder.fignumbers.get(key, {}):
