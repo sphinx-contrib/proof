@@ -1,6 +1,7 @@
 * sphinxcontrib-proof 1.2.0 (unreleased)
 
     * Drop python3.6 support.
+    * Add python3.8 support.
 
     -- Louis Paternault <spalax+python@gresille.org>
 
