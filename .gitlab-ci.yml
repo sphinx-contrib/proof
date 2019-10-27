@@ -1,4 +1,4 @@
-image: paternal/pythons:buster
+image: paternal/pythons:bullseye
 
 tox:
   script:
