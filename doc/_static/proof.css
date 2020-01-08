@@ -15,9 +15,8 @@
 .proof-content {
   border: 1px solid #9fb1b4;
   background-color: #F5F7F9;
-  padding: 0.5em 1em;
+  padding: 0em 1em;
 }
-
 
 /* Toggle proof */
 .proof-type-proof > .proof-title {

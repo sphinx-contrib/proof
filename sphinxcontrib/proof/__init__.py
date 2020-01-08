@@ -30,7 +30,7 @@ from sphinx.domains import ObjType
 from sphinx.roles import XRefRole
 from sphinx.util import copy_static_entry
 from sphinx.util.docutils import SphinxDirective
-from sphinx.util.nodes import set_source_info, make_refnode
+from sphinx.util.nodes import set_source_info, make_refnode, clean_astext
 
 VERSION = "1.1.1"
 
@@ -51,11 +51,17 @@ PROOF_THEOREM_TYPES = {
 
 PROOF_HTML_NONUMBERS = ["proof"]
 
-PROOF_HTML_TITLE_TEMPLATE = """
+PROOF_HTML_TITLE_TEMPLATE_VISIT = """
     <div class="proof-title">
         <span class="proof-type">{{ thmtype }} {% if number %}{{number}}{% endif %}</span>
         {% if title %}
-            <span class="proof-title-name">({{ title }})</span>
+            <span class="proof-title-name">(
+        {%- endif -%}
+"""
+
+PROOF_HTML_TITLE_TEMPLATE_DEPART = """
+        {%- if title -%}
+            )</span>
         {% endif %}
     </div>
 """
@@ -66,9 +72,10 @@ PROOF_HTML_TITLE_TEMPLATE = """
 
 
 def title_getter(node):
-    """Return the title of a node (or `None`)."""
-    if "title" in node:
-        return node["title"]
+    """Return the title of a node (or "")."""
+    for elem in node:
+        if isinstance(elem, _TitleNode):
+            return clean_astext(elem)
     return ""
 
 
@@ -85,6 +92,14 @@ class UnnumberedStatementNode(_StatementNode):
 
     Some builders ignore this.
     """
+
+
+class _TitleNode(nodes.TextElement):
+    """Title of a statement"""
+
+
+class _EmptyTitleNode(nodes.TextElement):
+    """Dummy node for statements without any title."""
 
 
 class ContentNode(nodes.General, nodes.Element):
@@ -114,7 +129,14 @@ class StatementEnvironment(SphinxDirective):
             node = NumberedStatementNode("\n".join(self.content))
         node["thmtype"] = thmtype
         if self.arguments:
-            node["title"] = self.arguments[0]
+            titletext = self.arguments[0]
+            titlenodes, messages = self.state.inline_text(titletext, self.lineno)
+            title = _TitleNode(titletext, "", *titlenodes, **self.options)
+            node += title
+        else:
+            title = _EmptyTitleNode("", "", **self.options)
+            node += title
+            messages = []
 
         content = ContentNode()
         self.state.nested_parse(self.content, self.content_offset, content)
@@ -122,7 +144,7 @@ class StatementEnvironment(SphinxDirective):
         node += content
 
         self.add_name(node)
-        return [node]
+        return [node] + messages
 
 
 class ProofDomain(StandardDomain):
@@ -134,35 +156,27 @@ class ProofDomain(StandardDomain):
 
 ################################################################################
 # HTML
+
+
+def get_fignumber(writer, node):
+    # Copied from the sphinx project: sphinx.writers.html.HTMLTranslator.add_fignumber()
+    if not isinstance(node.parent, NumberedStatementNode):
+        return ""
+    figure_id = node.parent["ids"][0]
+    if writer.builder.name == "singlehtml":
+        key = "%s/%s" % (writer.docnames[-1], "proof")
+    else:
+        key = "proof"
+    if figure_id in writer.builder.fignumbers.get(key, {}):
+        return ".".join(map(str, writer.builder.fignumbers[key][figure_id]))
+    return ""
+
+
 def html_visit_statement_node(self, node):
     """Enter :class:`_StatementNode` in HTML builder."""
 
-    def get_fignumber():
-        # Copied from the sphinx project: sphinx.writers.html.HTMLTranslator.add_fignumber()
-        if not isinstance(node, NumberedStatementNode):
-            return ""
-        figure_id = node["ids"][0]
-        if self.builder.name == "singlehtml":
-            key = "%s/%s" % (self.docnames[-1], "proof")
-        else:
-            key = "proof"
-        if figure_id in self.builder.fignumbers.get(key, {}):
-            return ".".join(map(str, self.builder.fignumbers[key][figure_id]))
-        return ""
-
-    config = self.builder.env.config
-    thmtypes = config.proof_theorem_types
-    thmtype = node["thmtype"]
-
     self.body.append(
-        self.starttag(node, "div", CLASS="proof proof-type-{}".format(thmtype))
-    )
-    self.body.append(
-        jinja2.Template(self.builder.config.proof_html_title_template).render(
-            number=get_fignumber(),
-            thmtype=thmtypes[node["thmtype"]],
-            title=node.get("title", None),
-        )
+        self.starttag(node, "div", CLASS="proof proof-type-{}".format(node["thmtype"]))
     )
 
 
@@ -170,6 +184,38 @@ def html_depart_statement_node(self, node):
     """Leave :class:`_StatementNode` in HTML builder."""
     # pylint: disable=unused-argument
     self.body.append("</div>")
+
+
+def html_visit_title_node(self, node):
+    """Enter :class:`_TitleNode` in HTML builder."""
+
+    config = self.builder.env.config
+    thmtypes = config.proof_theorem_types
+    thmtype = node.parent["thmtype"]
+
+    self.body.append(
+        jinja2.Template(self.builder.config.proof_html_title_template_visit).render(
+            number=get_fignumber(self, node),
+            thmtype=thmtypes[thmtype],
+            title=isinstance(node, _TitleNode),
+        )
+    )
+
+
+def html_depart_title_node(self, node):
+    """Leave :class:`_TitleNode` in HTML builder."""
+
+    config = self.builder.env.config
+    thmtypes = config.proof_theorem_types
+    thmtype = node.parent["thmtype"]
+
+    self.body.append(
+        jinja2.Template(self.builder.config.proof_html_title_template_depart).render(
+            number=get_fignumber(self, node),
+            thmtype=thmtypes[thmtype],
+            title=isinstance(node, _TitleNode),
+        )
+    )
 
 
 def html_visit_content_node(self, node):
@@ -190,9 +236,17 @@ def html_depart_content_node(self, node):
 def latex_visit_statement_node(self, node):
     """Enter :class:`_StatementNode` in LaTeX builder."""
     self.body.append(r"\begin{{{}}}".format(node["thmtype"]))
-    if "title" in node:
-        self.body.append("[{}]".format(node["title"]))
-    self.body.append(self.hypertarget_to(node))
+
+
+def latex_visit_title_node(self, node):
+    if isinstance(node, _TitleNode):
+        self.body.append("[")
+
+
+def latex_depart_title_node(self, node):
+    if isinstance(node, _TitleNode):
+        self.body.append("]")
+    self.body.append(self.hypertarget_to(node.parent))
     self.body.append("\n")
 
 
@@ -276,7 +330,12 @@ def setup(app):
     app.add_stylesheet("proof.css")
     app.add_javascript("proof.js")
 
-    app.add_config_value("proof_html_title_template", PROOF_HTML_TITLE_TEMPLATE, "env")
+    app.add_config_value(
+        "proof_html_title_template_visit", PROOF_HTML_TITLE_TEMPLATE_VISIT, "env"
+    )
+    app.add_config_value(
+        "proof_html_title_template_depart", PROOF_HTML_TITLE_TEMPLATE_DEPART, "env"
+    )
     app.add_config_value("proof_html_nonumbers", PROOF_HTML_NONUMBERS, "env")
     app.add_config_value("proof_latex_main", "theorem", "env")
     app.add_config_value("proof_latex_notheorem", [], "env")
@@ -302,6 +361,18 @@ def setup(app):
         html=(html_visit_content_node, html_depart_content_node),
         singlehtml=(html_visit_content_node, html_depart_content_node),
         latex=(latex_visit_content_node, latex_depart_content_node),
+    )
+    app.add_node(
+        _TitleNode,
+        html=(html_visit_title_node, html_depart_title_node),
+        singlehtml=(html_visit_title_node, html_depart_title_node),
+        latex=(latex_visit_title_node, latex_depart_title_node),
+    )
+    app.add_node(
+        _EmptyTitleNode,
+        html=(html_visit_title_node, html_depart_title_node),
+        singlehtml=(html_visit_title_node, html_depart_title_node),
+        latex=(latex_visit_title_node, latex_depart_title_node),
     )
 
     app.connect("config-inited", process_proof_theorem_types)

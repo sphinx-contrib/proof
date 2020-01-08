@@ -104,27 +104,42 @@ Common options
 HTML options
 """"""""""""
 
-* ``proof_html_title_template`` :
+* ``proof_html_title_template_visit`` and ``proof_html_title_template_depart`` :
 
-  Template used when labeling theorems. Default is:
+  Templates used when labeling theorems. Default are:
 
-  .. code-block:: html
+  - for ``proof_html_title_template_visit``:
 
-     <div class="proof-title">
-         <span class="proof-type">{{ thmtype }} {% if number %}{{number}}{% endif %}</span>
-         {% if title %}
-             <span class="proof-title-name">({{ title }})</span>
-         {% endif %}
-     </div>
+      .. code-block:: html
 
-  This is a `jinja2 template <http://jinja.pocoo.org/docs/2.10/templates/>`_, with available variables being:
+         <div class="proof-title">
+             <span class="proof-type">{{ thmtype }} {% if number %}{{number}}{% endif %}</span>
+             {% if title %}
+                 <span class="proof-title-name">(
+             {%- endif -%}
+
+  - for ``proof_html_title_template_depart``:
+
+      .. code-block:: html
+
+             {%- if title -%}
+                 )</span>
+             {% endif %}
+         </div>
+
+  Note that to build the title, one has to concat : ``proof_html_title_template_visit`` + *Optional theorem title* + ``proof_html_title_template_depart``.
+
+  Those are `jinja2 templates <http://jinja.pocoo.org/docs/2.10/templates/>`_, with available variables being:
 
   - ``thmtype``: type of the theorem (Theorem, Proof, or any of the *values* of configuration option :ref:`proof_theorem_types <proof_theorem_types>`);
   - ``number``: theorem number (``None`` if unnumbered);
-  - ``title``: theorem title (``None`` if anonymous).
+  - ``title``: boolean (``False`` if anonymous).
 
   .. versionchanged:: 1.1.0
      New in version 1.1.0.
+
+  .. versionchanged:: 1.2.0
+     Split old ``proof_html_title_template`` into ``proof_html_title_template_visit`` and ``proof_html_title_template_depart``.
 
 
 .. _proof_html_nonumbers:

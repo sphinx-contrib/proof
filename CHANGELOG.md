@@ -1,7 +1,14 @@
 * sphinxcontrib-proof 1.2.0 (unreleased)
 
-    * Drop python3.6 support.
-    * Add python3.8 support.
+    * Python support
+
+        * Drop python3.6 support.
+        * Add python3.8 support.
+
+    * Bug fixes and Features
+
+        * Theorem titles are now correctly parsed. Closes #9.
+        * Configuration option `proof_html_title_template` has been split into `proof_html_title_template_visit` and `proof_html_title_template_depart`.
 
     -- Louis Paternault <spalax+python@gresille.org>
 
