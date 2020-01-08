@@ -159,6 +159,7 @@ class ProofDomain(StandardDomain):
 
 
 def get_fignumber(writer, node):
+    """Compute and return the theorem number of `node`."""
     # Copied from the sphinx project: sphinx.writers.html.HTMLTranslator.add_fignumber()
     if not isinstance(node.parent, NumberedStatementNode):
         return ""
@@ -239,11 +240,13 @@ def latex_visit_statement_node(self, node):
 
 
 def latex_visit_title_node(self, node):
+    """Enter :class:`_TitleNode` in HTML builder."""
     if isinstance(node, _TitleNode):
         self.body.append("[")
 
 
 def latex_depart_title_node(self, node):
+    """Leave :class:`_TitleNode` in HTML builder."""
     if isinstance(node, _TitleNode):
         self.body.append("]")
     self.body.append(self.hypertarget_to(node.parent))
