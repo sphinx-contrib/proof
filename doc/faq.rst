@@ -36,7 +36,7 @@ Using the default configuration, LaTeX will number proofs (e.g. *Definition 1*, 
 
 To disable proof numbering with LaTeX, you have to :
 
-* Add ``"proof"`` to ``proof_latex_notheorem``. Sphinx will define a ``proof::proof`` directive, but LaTeX will not define a ``proof`` environment".
+* Add ``"proof"`` to ``proof_latex_notheorem``. Sphinx will define a ``proof::proof`` directive, but LaTeX will not define a ``proof`` environment.
 * This ``proof`` environment has to be defined in ``latex_elements['preamble']``, either with your custom command, or by importing package `amsthm <https://www.ctan.org/pkg/amsthm>`__, which defines such a ``proof`` environment (which is not numbered).
 
 The ``conf.py`` contains:
