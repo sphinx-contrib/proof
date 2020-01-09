@@ -149,3 +149,11 @@ And here are others, without any label, or without title.
 .. proof:corollary:: Non-quasimodal class of frames
 
    Let K be a class of frames, and :math:`\varphi` a hybrid formula valid in K. If :math:`\varphi` is not valid in the closure of K under the three fundamental operations and ultraroots, then K is not quasimodal.
+
+.. _gammastar:
+
+.. proof:conjecture:: Fake :math:`\Gamma^*` conjecture
+
+   This is a dummy conjecture to illustrate that one can use math in theorem titles.
+
+   Note that math typesetting is lost when referencing the theorem: :ref:`gammastar`.
