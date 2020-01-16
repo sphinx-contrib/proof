@@ -1,4 +1,10 @@
-* sphinxcontrib-proof 1.2.0 (unreleased)
+* sphinxcontrib-proof 1.2.1 (unreleased)
+
+    * Minor setup.py improvements.
+
+    -- Louis Paternault <spalax+python@gresille.org>
+
+* sphinxcontrib-proof 1.2.0 (2020-01-16)
 
     * Python support
 
