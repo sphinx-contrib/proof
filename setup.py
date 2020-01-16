@@ -35,7 +35,7 @@ setup(
     name="sphinxcontrib-proof",
     version="1.2.0",
     packages=["sphinxcontrib.proof"],
-    setup_requires=["hgtools"],
+    setup_requires=["setuptools_scm"],
     install_requires=["jinja2", "sphinx>=1.8.0"],
     include_package_data=True,
     author="Louis Paternault",
