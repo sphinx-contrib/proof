@@ -32,7 +32,7 @@ from sphinx.util import copy_static_entry
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.nodes import set_source_info, make_refnode, clean_astext
 
-VERSION = "1.1.1"
+VERSION = "1.2.0"
 
 ################################################################################
 # Configuration
