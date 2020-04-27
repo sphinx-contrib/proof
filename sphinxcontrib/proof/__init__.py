@@ -28,7 +28,6 @@ from docutils.statemachine import ViewList
 from sphinx.domains.std import StandardDomain
 from sphinx.domains import ObjType
 from sphinx.roles import XRefRole
-from sphinx.util import copy_static_entry
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.nodes import set_source_info, make_refnode, clean_astext
 
@@ -330,8 +329,8 @@ def setup(app):
 
     app.add_domain(ProofDomain)
 
-    app.add_stylesheet("proof.css")
-    app.add_javascript("proof.js")
+    app.add_css_file("proof.css")
+    app.add_js_file("proof.js")
 
     app.add_config_value(
         "proof_html_title_template_visit", PROOF_HTML_TITLE_TEMPLATE_VISIT, "env"

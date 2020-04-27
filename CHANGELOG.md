@@ -1,6 +1,7 @@
 * sphinxcontrib-proof 1.2.1 (unreleased)
 
     * Minor setup.py improvements.
+    * Update deprecated APIs.
 
     -- Louis Paternault <spalax+python@gresille.org>
 
