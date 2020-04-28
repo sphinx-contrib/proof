@@ -50,7 +50,7 @@ setup(
     license="AGPLv3 or any later version",
     # test_suite="test.suite",
     keywords="sphinx math proof theorem",
-    python_requires=">=3.5",
+    python_requires=">=3.5, <4",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Framework :: Sphinx :: Extension",
