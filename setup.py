@@ -1,4 +1,4 @@
-# Copyright 2017-2018 Louis Paternault
+# Copyright 2015-2020 Louis Paternault
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ def readme():
 
 setup(
     name="sphinxcontrib-proof",
-    version="1.2.0",
+    version="1.3.0",
     packages=["sphinxcontrib.proof"],
     setup_requires=["setuptools_scm"],
     install_requires=["jinja2", "sphinx>=1.8.0"],
@@ -66,5 +66,6 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     long_description=readme(),
+    long_description_content_type="text/x-rst",
     zip_safe=False,
 )

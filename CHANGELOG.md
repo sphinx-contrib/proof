@@ -1,4 +1,4 @@
-* sphinxcontrib-proof 1.2.1 (unreleased)
+* sphinxcontrib-proof 1.3.0 (2020-04-28)
 
     * Minor setup.py improvements.
     * Update deprecated APIs.
