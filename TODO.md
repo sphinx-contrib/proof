@@ -1,0 +1,1 @@
+- [ ] Replace setup.py by setup.cfg and pyproject.toml
