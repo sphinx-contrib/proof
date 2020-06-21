@@ -2,14 +2,14 @@
 
     * Drop python3.5 support
 
-    -- Louis Paternault <spalax+python@gresille.org>
+    -- Louis Paternault <spalax@gresille.org>
 
 * sphinxcontrib-proof 1.3.0 (2020-04-28)
 
     * Minor setup.py improvements.
     * Update deprecated APIs.
 
-    -- Louis Paternault <spalax+python@gresille.org>
+    -- Louis Paternault <spalax@gresille.org>
 
 * sphinxcontrib-proof 1.2.0 (2020-01-16)
 
@@ -23,13 +23,13 @@
         * Theorem titles are now correctly parsed. Closes #9.
         * Configuration option `proof_html_title_template` has been split into `proof_html_title_template_visit` and `proof_html_title_template_depart`.
 
-    -- Louis Paternault <spalax+python@gresille.org>
+    -- Louis Paternault <spalax@gresille.org>
 
 * sphinxcontrib-proof 1.1.1 (2018-12-07)
 
     * Config value `proof_theorem_types` is used *after* config values have been inited. Closes !7.
 
-    -- Louis Paternault <spalax+python@gresille.org>
+    -- Louis Paternault <spalax@gresille.org>
 
 * sphinxcontrib-proof 1.1.0 (2018-10-17)
 
@@ -41,20 +41,20 @@
     * Internally, rename `name` to `label`, and `content` to `name`.
     * Add `singlehtml` builder. Closes #5.
 
-    -- Louis Paternault <spalax+python@gresille.org>
+    -- Louis Paternault <spalax@gresille.org>
 
 * sphinxcontrib-proof 1.0.1 (2017-01-01)
 
     * Fix wheel.
 
-    -- Louis Paternault <spalax+python@gresille.org>
+    -- Louis Paternault <spalax@gresille.org>
 
 * sphinxcontrib-proof 1.0.0 (2017-12-30)
 
     * Drop python2 support.
     * Minor internal improvements.
 
-    -- Louis Paternault <spalax+python@gresille.org>
+    -- Louis Paternault <spalax@gresille.org>
 
 * sphinxcontrib-proof 0.1.1 (2017-02-19)
 
@@ -62,10 +62,10 @@
     * Fix minor bugs introduced by sphinx1.5.
     * Minor test improvements.
 
-    -- Louis Paternault <spalax+python@gresille.org>
+    -- Louis Paternault <spalax@gresille.org>
 
 * sphinxcontrib-proof 0.1.0 (2015-09-26)
 
     * First published version: works for both LaTeX and HTML builders
 
-    -- Louis Paternault <spalax+python@gresille.org>
+    -- Louis Paternault <spalax@gresille.org>

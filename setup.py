@@ -39,7 +39,7 @@ setup(
     install_requires=["jinja2", "sphinx>=1.8.0"],
     include_package_data=True,
     author="Louis Paternault",
-    author_email="spalax+python@gresille.org",
+    author_email="spalax@gresille.org",
     description="This packages contains the Proof sphinx extension, which provides directives to typeset theorems, lemmas, proofs, etc.",
     url="https://git.framasoft.org/spalax/sphinxcontrib-proof",
     project_urls={
