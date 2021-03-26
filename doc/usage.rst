@@ -212,9 +212,9 @@ CSS and Javascript
 HTML builder only add some html tags, but does not provides the CSS or
 javascript that uses it. You can build your own, or use the one used by this
 documentation package (`css
-<https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/master/doc/_static/proof.css>`_
+<https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/main/doc/_static/proof.css>`_
 and `javascript
-<https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/master/doc/_static/proof.js>`_)
+<https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/main/doc/_static/proof.js>`_)
 by placing them into your documentation static directory.
 Do not hotlink to those hosted here: they will change without notice.
 

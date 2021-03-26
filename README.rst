@@ -8,7 +8,7 @@ to typeset theorems, properties, proofs, etc. You can see it in action in
 What's new?
 -----------
 
-See `changelog <https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/master/CHANGELOG.md>`_.
+See `changelog <https://git.framasoft.org/spalax/sphinxcontrib-proof/blob/main/CHANGELOG.md>`_.
 
 Install
 -------
