@@ -1,4 +1,4 @@
-# Copyright 2015-2020 Louis Paternault
+# Copyright 2015-2022 Louis Paternault
 #
 # Sphinxcontrib-Proof is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -164,7 +164,7 @@ def get_fignumber(writer, node):
         return ""
     figure_id = node.parent["ids"][0]
     if writer.builder.name == "singlehtml":
-        key = "%s/%s" % (writer.docnames[-1], "proof")
+        key = f"{writer.docnames[-1]}/proof"
     else:
         key = "proof"
     if figure_id in writer.builder.fignumbers.get(key, {}):
@@ -176,7 +176,7 @@ def html_visit_statement_node(self, node):
     """Enter :class:`_StatementNode` in HTML builder."""
 
     self.body.append(
-        self.starttag(node, "div", CLASS="proof proof-type-{}".format(node["thmtype"]))
+        self.starttag(node, "div", CLASS=f"""proof proof-type-{node["thmtype"]}""")
     )
 
 
@@ -235,7 +235,7 @@ def html_depart_content_node(self, node):
 
 def latex_visit_statement_node(self, node):
     """Enter :class:`_StatementNode` in LaTeX builder."""
-    self.body.append(r"\begin{{{}}}".format(node["thmtype"]))
+    self.body.append(rf"""\begin{{{node["thmtype"]}}}""")
 
 
 def latex_visit_title_node(self, node):
@@ -254,7 +254,7 @@ def latex_depart_title_node(self, node):
 
 def latex_depart_statement_node(self, node):
     """Leave :class:`_StatementNode` in LaTeX builder."""
-    self.body.append(r"\end{{{}}}".format(node["thmtype"]))
+    self.body.append(rf"""\end{{{node["thmtype"]}}}""")
     self.body.append("\n")
 
 
@@ -284,11 +284,7 @@ def _latex_preamble_iterator(config):
 
     for environment, thmtype in thmtypes.items():
         if not environment in config.proof_latex_notheorem + [config.proof_latex_main]:
-            yield r"\newtheorem{%s}[%s]{%s}" % (
-                environment,
-                config.proof_latex_main,
-                thmtype,
-            )
+            yield rf"\newtheorem{{{environment}}}[{config.proof_latex_main}]{{{thmtype}}}"
 
     yield r"\makeatother"
 
