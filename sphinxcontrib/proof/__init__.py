@@ -19,17 +19,15 @@ import logging
 import os
 
 import jinja2
-
 from docutils import nodes
 from docutils.nodes import make_id
 from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
-
-from sphinx.domains.std import StandardDomain
 from sphinx.domains import ObjType
+from sphinx.domains.std import StandardDomain
 from sphinx.roles import XRefRole
 from sphinx.util.docutils import SphinxDirective
-from sphinx.util.nodes import set_source_info, make_refnode, clean_astext
+from sphinx.util.nodes import clean_astext, make_refnode, set_source_info
 
 VERSION = "1.3.0"
 
