@@ -29,7 +29,7 @@ from sphinx.roles import XRefRole
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.nodes import clean_astext, make_refnode, set_source_info
 
-VERSION = "1.3.0"
+VERSION = "1.4.0"
 
 ################################################################################
 # Configuration
