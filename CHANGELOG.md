@@ -1,6 +1,7 @@
 * sphinxcontrib-proof 1.4.0 (unreleased)
 
     * Drop python3.5 support
+    * Modernize setup files.
 
     -- Louis Paternault <spalax@gresille.org>
 
