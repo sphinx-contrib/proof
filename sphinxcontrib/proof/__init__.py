@@ -1,4 +1,4 @@
-# Copyright 2015-2022 Louis Paternault
+# Copyright 2015-2023 Louis Paternault
 #
 # Sphinxcontrib-Proof is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ from sphinx.roles import XRefRole
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.nodes import clean_astext, make_refnode, set_source_info
 
-VERSION = "1.5.0"
+VERSION = "1.6.0"
 
 ################################################################################
 # Configuration
