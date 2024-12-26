@@ -1,6 +1,7 @@
 * sphinxcontrib-proof 1.7.0 (unreleased)
 
     * Add Python3.13 support.
+    * Drop Python3.7 support.
 
     -- Louis Paternault <spalax@gresille.org>
 
