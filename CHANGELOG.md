@@ -1,4 +1,4 @@
-* sphinxcontrib-proof 1.7.1 (unreleased)
+* sphinxcontrib-proof 1.7.1 (2025-10-29)
 
     * Add python3.14 support.
 
