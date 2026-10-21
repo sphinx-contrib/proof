@@ -1,3 +1,9 @@
+* sphinxcontrib-proof 1.8.0 (unreleased)
+
+    * Add python3.15 and python3.16 support.
+
+    -- Louis Paternault <spalax@gresille.org>
+
 * sphinxcontrib-proof 1.7.1 (2025-10-29)
 
     * Add python3.14 support.
