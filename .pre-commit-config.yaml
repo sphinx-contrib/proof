@@ -1,15 +1,15 @@
 repos:
 -   repo: https://github.com/ambv/black
-    rev: 25.9.0
+    rev: 26.10.1
     hooks:
     - id: black
 - repo: https://github.com/pycqa/isort
-  rev: 7.0.0
+  rev: 10.0.0b1
   hooks:
     - id: isort
       name: isort (python)
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.21.0
+  rev: v3.22.0
   hooks:
   - id: pyupgrade
     args: [--py38-plus]
